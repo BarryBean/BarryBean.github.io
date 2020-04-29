@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    4.6k 字
+                    4.3k 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    53
+                    50
                      分钟
                   </span>
                 
@@ -191,7 +191,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>Java 基础知识，包括Java平台、语法、面向对象、IO流、泛型、反射等。</p>
+              <p>Java 基础知识，包括Java平台、语法、面向对象、泛型、反射、异常等。</p>
 <a id="more"></a>
 
 <h1 id="1-Java概述"><a href="#1-Java概述" class="headerlink" title="1. Java概述"></a>1. Java概述</h1><p>Java是一种面向对象的编程语言，继承了之前语言的优点，还抛弃了指针等晦涩的内容，简单易用，功能强大。</p>
@@ -464,41 +464,23 @@ equals()：字符串比较。</code></pre>
 <li>浅拷贝：对基础数据类型值传递，对引用数据类型引用传递；</li>
 <li>深拷贝：对基础数据类型值传递，对引用数据类型，创建新对象，复制其内容。</li>
 </ol>
-<h1 id="4-IO流"><a href="#4-IO流" class="headerlink" title="4. IO流"></a>4. IO流</h1><h2 id="4-1-分类"><a href="#4-1-分类" class="headerlink" title="4.1 分类"></a>4.1 分类</h2><ul>
-<li>按流向，分为输入流和输出流；</li>
-<li>按操作单元，分为字节流和字符流；</li>
-<li>按流的角色，分为节点流和处理流。</li>
-</ul>
-<p>归总，所有的IO都是从4个基类拓展得来。</p>
-<ul>
-<li>InputStream字节输入流</li>
-<li>Reader字符输入流</li>
-<li>OutputStream字节输出流</li>
-<li>Writer字符输出流</li>
-</ul>
-<h2 id="4-2-BIO、NIO和AIO"><a href="#4-2-BIO、NIO和AIO" class="headerlink" title="4.2 BIO、NIO和AIO"></a>4.2 BIO、NIO和AIO</h2><ul>
-<li>BIO：传统IO，数据的读取写入必须阻塞在一个线程内等待完成。使用简单，但并发能力低；</li>
-<li>NIO：Client和Server通过通道Channel通信，监听通道的事件变化，如果有数据变化就通知线程进行读写操作，没有数据可读Client也能去做其他事情。多路复用。</li>
-<li>AIO异步IO：异步是指服务端线程接收到客户端管道后就交给底层处理IO通信，自己可以做其他事情。基于事件和回调实现。</li>
-</ul>
-<p>IO类型具体见 Socket通信。</p>
-<h1 id="5-反射"><a href="#5-反射" class="headerlink" title="5. 反射"></a>5. 反射</h1><p>答：反射机制是指在运行中，任意一个类，都能知道这个类的所有属性和方法；任意一个对象，都能调用它的属性和方法。简而言之，<strong>动态获取和调用对象的属性和方法。</strong> </p>
+<h1 id="4-反射"><a href="#4-反射" class="headerlink" title="4. 反射"></a>4. 反射</h1><p>答：反射机制是指在运行中，任意一个类，都能知道这个类的所有属性和方法；任意一个对象，都能调用它的属性和方法。简而言之，<strong>动态获取和调用对象的属性和方法。</strong> </p>
 <p>优点是灵活度高，缺点是慢慢慢！</p>
-<h2 id="5-1-相关类"><a href="#5-1-相关类" class="headerlink" title="5.1 相关类"></a>5.1 相关类</h2><ul>
+<h2 id="4-1-相关类"><a href="#4-1-相关类" class="headerlink" title="4.1 相关类"></a>4.1 相关类</h2><ul>
 <li>Class：类，用于获取类的相关信息</li>
 <li>Field：成员变量，用于获取实例变量和静态变量</li>
 <li>Method：方法，用于获取类中的方法参数和类型</li>
 <li>Constructor：构造器，用于获取构造器的相关参数和类型</li>
 </ul>
-<h2 id="5-2-流程"><a href="#5-2-流程" class="headerlink" title="5.2 流程"></a>5.2 流程</h2><ol>
+<h2 id="4-2-流程"><a href="#4-2-流程" class="headerlink" title="4.2 流程"></a>4.2 流程</h2><ol>
 <li>获取class对象。Class.forName，getClass()，.class获得。</li>
 <li>newInstance()获取class对象的实例，通过getFields,getConstructors,getMethods获取类成员，set/get访问字段，invoke()调用方法。</li>
 </ol>
-<h2 id="5-3-为什么慢"><a href="#5-3-为什么慢" class="headerlink" title="5.3 为什么慢"></a>5.3 为什么慢</h2><ol>
+<h2 id="4-3-为什么慢"><a href="#4-3-为什么慢" class="headerlink" title="4.3 为什么慢"></a>4.3 为什么慢</h2><ol>
 <li>class.getMethod()，遍历所有的方法，匹配不到就去找遍历父类。最耗时的地方，用备忘录将method记录能降低一个数量级的消耗。</li>
 <li>method.invoke()，参数为Object数组，需要对基本类型装箱。</li>
 </ol>
-<h2 id="5-4-举例"><a href="#5-4-举例" class="headerlink" title="5.4 举例"></a>5.4 举例</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+<h2 id="4-4-举例"><a href="#4-4-举例" class="headerlink" title="4.4 举例"></a>4.4 举例</h2><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
         User ming = <span class="hljs-keyword">new</span> Usetr();
         String className = <span class="hljs-string">"com.bys.User"</span>;
@@ -527,14 +509,15 @@ equals()：字符串比较。</code></pre>
 &#125;</code></pre>
 
 
-<h1 id="6-元注解"><a href="#6-元注解" class="headerlink" title="6. 元注解"></a>6. 元注解</h1><p>答：提供了4个元注解，作用是负责注解其他注解。</p>
+
+<h1 id="5-元注解"><a href="#5-元注解" class="headerlink" title="5. 元注解"></a>5. 元注解</h1><p>答：提供了4个元注解，作用是负责注解其他注解。</p>
 <ul>
 <li>@Target，注明注解用于什么地方。</li>
 <li>@Rentention，注明注解的生命周期，分为SOURCE, CLASS, RUNTIME三种策略。</li>
 <li>@Documented，注明是否将注解信息添加在java文档中。</li>
 <li>@Inherited，注明该注释和子类的关系。即一个类被@Inherited的注解标注，其子类也被这个注解标注。</li>
 </ul>
-<h2 id="6-1-注解的流程"><a href="#6-1-注解的流程" class="headerlink" title="6.1 注解的流程"></a>6.1 注解的流程</h2><p>答：作用：代替繁琐的配置文件，简化开发。</p>
+<h2 id="5-1-注解的流程"><a href="#5-1-注解的流程" class="headerlink" title="5.1 注解的流程"></a>5.1 注解的流程</h2><p>答：作用：代替繁琐的配置文件，简化开发。</p>
 <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>定义注解类必须使用@interface</p>
 <h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>value就是属性。指定属性后，使用注解时需要给属性赋值。 </p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> MyAnn &#123; 
@@ -547,9 +530,9 @@ equals()：字符串比较。</code></pre>
 &#125;</code></pre>
 
 
-<h1 id="7-泛型"><a href="#7-泛型" class="headerlink" title="7. 泛型"></a>7. 泛型</h1><p>答：泛型是当创建对象或调用方法时才去确定数据类型的特殊类型。</p>
-<h2 id="7-1-好处"><a href="#7-1-好处" class="headerlink" title="7.1 好处"></a>7.1 好处</h2><p>不用进行强转；程序更加健壮；可读性更好；在创建集合时限定类型方便。</p>
-<h2 id="7-2-泛型基础"><a href="#7-2-泛型基础" class="headerlink" title="7.2 泛型基础"></a>7.2 泛型基础</h2><h3 id="7-2-1-泛型类"><a href="#7-2-1-泛型类" class="headerlink" title="7.2.1 泛型类"></a>7.2.1 泛型类</h3><p>泛型类就是把泛型定义在类上，用户使用该类的时候，才把类型明确下来。</p>
+<h1 id="6-泛型"><a href="#6-泛型" class="headerlink" title="6. 泛型"></a>6. 泛型</h1><p>答：泛型是当创建对象或调用方法时才去确定数据类型的特殊类型。</p>
+<h2 id="6-1-好处"><a href="#6-1-好处" class="headerlink" title="6.1 好处"></a>6.1 好处</h2><p>不用进行强转；程序更加健壮；可读性更好；在创建集合时限定类型方便。</p>
+<h2 id="6-2-泛型基础"><a href="#6-2-泛型基础" class="headerlink" title="6.2 泛型基础"></a>6.2 泛型基础</h2><h3 id="6-2-1-泛型类"><a href="#6-2-1-泛型类" class="headerlink" title="6.2.1 泛型类"></a>6.2.1 泛型类</h3><p>泛型类就是把泛型定义在类上，用户使用该类的时候，才把类型明确下来。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ObjectTool</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;
     <span class="hljs-keyword">private</span> T obj;
 
@@ -561,12 +544,12 @@ equals()：字符串比较。</code></pre>
         <span class="hljs-keyword">this</span>.obj = obj;
     &#125;
 &#125;</code></pre>
-<h3 id="7-2-2-泛型方法"><a href="#7-2-2-泛型方法" class="headerlink" title="7.2.2 泛型方法"></a>7.2.2 泛型方法</h3><p>外界调用时传进来什么类型，返回值就是什么类型。</p>
+<h3 id="6-2-2-泛型方法"><a href="#6-2-2-泛型方法" class="headerlink" title="6.2.2 泛型方法"></a>6.2.2 泛型方法</h3><p>外界调用时传进来什么类型，返回值就是什么类型。</p>
 <pre><code class="hljs java"><span class="hljs-comment">//定义泛型方法..</span>
 <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">(T t)</span> </span>&#123;
     System.out.println(t);
 &#125;</code></pre>
-<h3 id="7-2-3-泛型类的子类"><a href="#7-2-3-泛型类的子类" class="headerlink" title="7.2.3 泛型类的子类"></a>7.2.3 泛型类的子类</h3><p>分为子类明确和子类不明确</p>
+<h3 id="6-2-3-泛型类的子类"><a href="#6-2-3-泛型类的子类" class="headerlink" title="6.2.3 泛型类的子类"></a>6.2.3 泛型类的子类</h3><p>分为子类明确和子类不明确</p>
 <pre><code class="hljs java"><span class="hljs-comment">//子类明确</span>
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InterImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Inter</span>&lt;<span class="hljs-title">String</span>&gt; </span>&#123;
     <span class="hljs-meta">@Override</span>
@@ -581,26 +564,26 @@ equals()：字符串比较。</code></pre>
         System.out.println(t);
     &#125;
 &#125;</code></pre>
-<h2 id="7-3-类型通配符’-’"><a href="#7-3-类型通配符’-’" class="headerlink" title="7.3 类型通配符’?’"></a>7.3 类型通配符’?’</h2><p>泛型提供了类型通配符 ? ，表示匹配任意类型。在用这个时，必须注意：<strong>只能调用和对象无关的方法，不能调用和对象有关的方法，直到外界确定了具体的类型。</strong></p>
+<h2 id="6-3-类型通配符’-’"><a href="#6-3-类型通配符’-’" class="headerlink" title="6.3 类型通配符’?’"></a>6.3 类型通配符’?’</h2><p>泛型提供了类型通配符 ? ，表示匹配任意类型。在用这个时，必须注意：<strong>只能调用和对象无关的方法，不能调用和对象有关的方法，直到外界确定了具体的类型。</strong></p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(List&lt;?&gt; list)</span></span>&#123;
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;list.size();i++)&#123;     
         System.out.println(list.get(i));  
     &#125;
 &#125;</code></pre>
-<h3 id="7-3-1-通配符上限"><a href="#7-3-1-通配符上限" class="headerlink" title="7.3.1 通配符上限"></a>7.3.1 通配符上限</h3><p>表示List接收的元素只能是Number自身或子类。</p>
+<h3 id="6-3-1-通配符上限"><a href="#6-3-1-通配符上限" class="headerlink" title="6.3.1 通配符上限"></a>6.3.1 通配符上限</h3><p>表示List接收的元素只能是Number自身或子类。</p>
 <pre><code class="hljs java">List&lt;? extends Number&gt;</code></pre>
-<h3 id="7-3-2-通配符下限"><a href="#7-3-2-通配符下限" class="headerlink" title="7.3.2 通配符下限"></a>7.3.2 通配符下限</h3><p>表示传递进来的只能是Type或其父类。</p>
+<h3 id="6-3-2-通配符下限"><a href="#6-3-2-通配符下限" class="headerlink" title="6.3.2 通配符下限"></a>6.3.2 通配符下限</h3><p>表示传递进来的只能是Type或其父类。</p>
 <pre><code class="hljs java">&lt;? <span class="hljs-keyword">super</span> Type&gt;</code></pre>
 
-<h2 id="7-4-泛型擦除"><a href="#7-4-泛型擦除" class="headerlink" title="7.4 泛型擦除"></a>7.4 泛型擦除</h2><p>在已经确定泛型类型的集合赋值给普通集合时，发生泛型擦除，即<strong>保留类型参数的上限</strong>。如List<String> list传递给List list1，保留的是String的上限Object。</p>
-<h1 id="8-JIT编译器"><a href="#8-JIT编译器" class="headerlink" title="8. JIT编译器"></a>8. JIT编译器</h1><p>答：JIT(Just In Time Compile)即时编译器，把经常运行的代码编译成和本地平台相关的机器码并优化，包括逃逸分析、锁消除、空值检测消除等。</p>
-<h2 id="8-1-逃逸分析"><a href="#8-1-逃逸分析" class="headerlink" title="8.1 逃逸分析"></a>8.1 逃逸分析</h2><p>答：逃逸分析的基本行为就是分析对象动态作用域。当一个对象在方法中被定义时，它可能被外部方法引用，例如作为参数传递，这种称为方法逃逸。作用是，经过分析，发现对象不被外界访问，经过JIT优化，把对象拆解成若干标量替换。</p>
-<h1 id="9-异常"><a href="#9-异常" class="headerlink" title="9. 异常"></a>9. 异常</h1><h2 id="9-1-分类"><a href="#9-1-分类" class="headerlink" title="9.1 分类"></a>9.1 分类</h2><ol>
+<h2 id="6-4-泛型擦除"><a href="#6-4-泛型擦除" class="headerlink" title="6.4 泛型擦除"></a>6.4 泛型擦除</h2><p>在已经确定泛型类型的集合赋值给普通集合时，发生泛型擦除，即<strong>保留类型参数的上限</strong>。如List<String> list传递给List list1，保留的是String的上限Object。</p>
+<h1 id="7-JIT编译器"><a href="#7-JIT编译器" class="headerlink" title="7. JIT编译器"></a>7. JIT编译器</h1><p>答：JIT(Just In Time Compile)即时编译器，把经常运行的代码编译成和本地平台相关的机器码并优化，包括逃逸分析、锁消除、空值检测消除等。</p>
+<h2 id="7-1-逃逸分析"><a href="#7-1-逃逸分析" class="headerlink" title="7.1 逃逸分析"></a>7.1 逃逸分析</h2><p>答：逃逸分析的基本行为就是分析对象动态作用域。当一个对象在方法中被定义时，它可能被外部方法引用，例如作为参数传递，这种称为方法逃逸。作用是，经过分析，发现对象不被外界访问，经过JIT优化，把对象拆解成若干标量替换。</p>
+<h1 id="8-异常"><a href="#8-异常" class="headerlink" title="8. 异常"></a>8. 异常</h1><h2 id="8-1-分类"><a href="#8-1-分类" class="headerlink" title="8.1 分类"></a>8.1 分类</h2><ol>
 <li>Throwable是所有错误Error和异常Exception的父类；</li>
 <li>Error一般为程序运行错误，不能被动态处理，只能安全终止；</li>
 <li>Exception分为运行时异常RuntimeException可以被捕获处理，非运行时异常CheckedException编译阶段强制要求处理(ide中标红)。</li>
 </ol>
-<h2 id="9-2-处理方式"><a href="#9-2-处理方式" class="headerlink" title="9.2 处理方式"></a>9.2 处理方式</h2><ol>
+<h2 id="8-2-处理方式"><a href="#8-2-处理方式" class="headerlink" title="8.2 处理方式"></a>8.2 处理方式</h2><ol>
 <li>抛出异常。遇到异常不做处理直接抛出，throws作用于方法上，throw作用于方法内。</li>
 <li>try/catch/finally，try中的异常被catch捕获处理，finally无论是否发生异常都执行，一般用来释放资源。</li>
 </ol>

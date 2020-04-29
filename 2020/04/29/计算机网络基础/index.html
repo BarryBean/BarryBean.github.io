@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="BarryBean">
+  <meta name="keywords" content="">
+  <title>计算机网络基础 - BarryBean&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>BarryBean's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/sky.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-29 14:00">
+                    星期三, 四月 29日 2020, 2:00 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    5.7k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    62
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="1-网络结构"><a href="#1-网络结构" class="headerlink" title="1. 网络结构"></a>1. 网络结构</h1><p>答：一般采用中和了OSI和TCP/IP体系的五层的协议体系。</p>
+<ul>
+<li>应用层：为应用程序提供交互服务。包含协议有DNS、HTTP、SMTP等。</li>
+<li>运输层：向主机进程提供通用的数据传输服务。主要包括TCP(传输控制协议)和UDP(用户数据协议)。</li>
+<li>网络层：选择合适的路由和交换结点，确保数据及时传送。主要包括IP协议。</li>
+<li>数据链路层：将网络层传下来的IP数据包组装成帧，并再相邻节点的链路上传送帧。</li>
+<li>物理层：实现相邻节点间比特流的透明传输，尽可能屏蔽传输介质和通信手段的差异。</li>
+</ul>
+<h2 id="1-1-TCP-IP协议簇"><a href="#1-1-TCP-IP协议簇" class="headerlink" title="1.1 TCP/IP协议簇"></a>1.1 TCP/IP协议簇</h2><p>互联网协议套件IPS是一个网络通讯模型，以及一整个网络传输协议家族，是网际网络的基础通讯架构。因为TCP和IP是最早制定的标准，所以又被称为TCP/IP协议簇。</p>
+<ul>
+<li>应用协议：HTTP、SMTP、FTP、TELNET；</li>
+<li>传输协议：TCP、UDP；</li>
+<li>网际协议：IP、ICMP、ARP；</li>
+<li>路由控制协议：RIP、OSPF、BGP。</li>
+</ul>
+<h1 id="2-TCP"><a href="#2-TCP" class="headerlink" title="2. TCP"></a>2. TCP</h1><h2 id="2-1-首部格式"><a href="#2-1-首部格式" class="headerlink" title="2.1 首部格式"></a>2.1 首部格式</h2><p>答：包含如下:</p>
+<ol>
+<li>源端口号</li>
+<li>目的端口号</li>
+<li>序号：对字节流编号。</li>
+<li>确认号：期望收到的下一个报文段序号。eg.B收到A的序号201，长度100，则B发给A的确认报文段的确认号为301。</li>
+<li>数据偏移：指首部的长度。</li>
+<li>标志位：总共有6个。<ul>
+<li>确认ACK：当ACK=1时，确认号字段有效，否则无效。<strong>连接建立后，ACK都为1</strong>。</li>
+<li>同步SYN：建立连接时同步序号。当SYN=1 ACK=0时，为请求连接报文，SYN=1 ACK=1为建立连接的响应报文。</li>
+<li>终止FIN：释放连接。当FIN=1时，为此报文端的发送方数据发送完毕，请求关闭连接。</li>
+<li>重置RST</li>
+<li>数据传输PSH：有报文需要传递给应用层</li>
+<li>紧急指针URG：设置紧急指针有效</li>
+</ul>
+</li>
+<li>窗口：作为接收方让发送方设置其发送窗口的依据。</li>
+</ol>
+<p>注：确认方ack = 发送方seq + 1<br><img src="/img/network/TCP%E9%A6%96%E9%83%A8.png" srcset="/img/loading.gif" alt="TCP首部"></p>
+<h2 id="2-1-三次握手"><a href="#2-1-三次握手" class="headerlink" title="2.1 三次握手"></a>2.1 三次握手</h2><p><img src="/img/network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" srcset="/img/loading.gif" alt="三次握手"></p>
+<h3 id="2-1-1-流程"><a href="#2-1-1-流程" class="headerlink" title="2.1.1 流程"></a>2.1.1 流程</h3><ul>
+<li>客户端—发送连接请求报文SYN=1，ACK=0，初始序号随机seq=x—服务端</li>
+<li>服务端—发送连接确认报文SYN=1，ACK=1，确认号ack=x+1，初始序号随机seq=y—客户端</li>
+<li>客户端—发出连接确认报文，ACK=1，确认号ack=y+1，序号seq=x+1</li>
+</ul>
+<h3 id="2-1-2-为什么要三次握手"><a href="#2-1-2-为什么要三次握手" class="headerlink" title="2.1.2 为什么要三次握手"></a>2.1.2 为什么要三次握手</h3><p>答：确保可靠的通信通道，<strong>让双方都确认对方和自己的接收和发送功能是正常的</strong>。</p>
+<p>将三次握手通俗的说。</p>
+<ol>
+<li>第一次握手，Server知道Client的发送能力和自己的接收能力是正常的。</li>
+<li>第二次握手，Client知道Server的发送和接收能力和自己的发送和接收能力是正常的，但是Server还不知道我的接收和他的发送能力正常与否。</li>
+<li>第三次握手，Client回馈，让Server知道自己的发送能力和Client的接收能力正常。</li>
+</ol>
+<h3 id="2-1-3-为什么不是两次握手"><a href="#2-1-3-为什么不是两次握手" class="headerlink" title="2.1.3 为什么不是两次握手"></a>2.1.3 为什么不是两次握手</h3><p>答：<strong>防止失效连接请求报文段被服务端接收</strong>，避免浪费服务端资源。</p>
+<p>例子：因为网络拥堵客户端重发连接请求进行通信，结束后释放连接。此时原来失效的请求到达服务端，直接进入 establish 状态，等待客户端的请求数据。但客户端早就关闭了，服务端会一直等待直到进行下面的操作。</p>
+<h3 id="2-1-4-检测连接失效"><a href="#2-1-4-检测连接失效" class="headerlink" title="2.1.4 检测连接失效"></a>2.1.4 检测连接失效</h3><p>答：通过<strong>保活计时器和探测报文</strong>实现。</p>
+<ul>
+<li>TCP设有保活计时器，Server每收到一次Client的请求，就复位计时器，通常是设置为2小时；</li>
+<li>若2小时内还没有收到Client的任何数据，Server每隔75s发送一个探测报文段，若连发10个探测报文仍没反应，Server认为Client故障，关闭连接。</li>
+</ul>
+<h2 id="2-2-四次挥手"><a href="#2-2-四次挥手" class="headerlink" title="2.2 四次挥手"></a>2.2 四次挥手</h2><p><img src="/img/network/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" srcset="/img/loading.gif" alt="四次挥手"></p>
+<ul>
+<li>Client状态变化：Fin-Wait-1 -&gt; Fin-Wait-2 -&gt; Time-Wait -&gt; Closed</li>
+<li>Server状态变化：Close-Wait -&gt; Last-Ack -&gt; Closed</li>
+</ul>
+<h3 id="2-2-1-流程"><a href="#2-2-1-流程" class="headerlink" title="2.2.1 流程"></a>2.2.1 流程</h3><p>ACK在连接建立后都为1。</p>
+<ul>
+<li>客户端—发送连接释放报文FIN=1，序号(握手时初始序号 + 发送的字节数据数量 + 1)seq=u—服务器</li>
+<li>服务器—发出确认收到报文ACK=1，确认序号ack=u+1，序列号(握手时初始序号 + 回复的字节数据)seq=v—客户端</li>
+<li>服务器—关闭连接，发送连接释放报文FIN=1，确认序号ack=u+1，初始序号seq=w—客户端</li>
+<li>客户端—发回确认收到报文ACK=1，确认序号seq=w+1，初始序号ack=u+1—服务器</li>
+</ul>
+<h3 id="2-2-2-为什么要四次挥手"><a href="#2-2-2-为什么要四次挥手" class="headerlink" title="2.2.2 为什么要四次挥手"></a>2.2.2 为什么要四次挥手</h3><p>答：<strong>Server端可能还有数据没有发送完毕</strong>。Client发出连接释放通知，Server确认收到后，Client就进入半关闭状态（只收消息不发消息），Server把未发完的数据发送完毕后，发送连接释放通知，Client确认后就关闭连接。</p>
+<h3 id="2-2-3-为什么Client要等待2msl"><a href="#2-2-3-为什么Client要等待2msl" class="headerlink" title="2.2.3 为什么Client要等待2msl"></a>2.2.3 为什么Client要等待2msl</h3><p>答：<strong>防止ack报文丢失，Server再次发送Fin报文</strong>，一来一回最长时间就是2MSL(Maximum Segment Lifetime最大报文生存周期)。</p>
+<h2 id="2-3-可靠传输"><a href="#2-3-可靠传输" class="headerlink" title="2.3 可靠传输"></a>2.3 可靠传输</h2><h3 id="2-3-1-超时重传"><a href="#2-3-1-超时重传" class="headerlink" title="2.3.1 超时重传"></a>2.3.1 超时重传</h3><p>答：若一个已经发送的报文段在超时时间内没有收到确认，就重传这个报文段。超时时间RTO略大于加权往返时间RTTs。往返时间RTT指一个报文段从发送再到接收到确认所经过的时间。</p>
+<h3 id="2-3-2-ARQ自动重传"><a href="#2-3-2-ARQ自动重传" class="headerlink" title="2.3.2 ARQ自动重传"></a>2.3.2 ARQ自动重传</h3><p>答：ARQ包括停止等待ARQ和连续ARQ。</p>
+<ul>
+<li><strong>停止等待ARQ</strong>协议：基本原理是每发完一个分组就停止发送，等待对方确认，收到确认后再发送下一组，没有收到就重传。优点是简单，缺点是信道利用率低。总结：<strong>发完一个就停止，确认后再发下一个</strong></li>
+<li><strong>连续ARQ</strong>协议：维持一个<strong>发送窗口</strong>，在窗口内的分组可以连续发送不用等待确认，接收方对到达的最后一个分组发送确认。优点是信道利用率高，缺点是发送方无法知道接收方正确收到的分组信息，重传需要回退N。总结：<strong>不用确认就能发，对last one确认，失败需要回退N</strong>。 <strong>流水线技术</strong></li>
+<li>选择重传协议：若发送方接收重复确认，就判断下一个报文段丢失，就立即重传下一报文段。</li>
+</ul>
+<h3 id="2-3-3-滑动窗口"><a href="#2-3-3-滑动窗口" class="headerlink" title="2.3.3 滑动窗口"></a>2.3.3 滑动窗口</h3><p>答：发送方的滑动窗口大小根据接收方来设置，接收方通过tcp告知自己的滑动窗口大小。</p>
+<ul>
+<li>发送窗口的最左部为已发送但未收到确认的第一个字节，接收窗口的最左部为已发送确认并交付主机。</li>
+<li>接收窗口只对最后一个按序到达的字节进行确认。如：收到31,34,35，只对31进行确认。<br><img src="/img/network/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" srcset="/img/loading.gif" alt="滑动窗口"></li>
+</ul>
+<h3 id="2-3-4-流量控制"><a href="#2-3-4-流量控制" class="headerlink" title="2.3.4 流量控制"></a>2.3.4 流量控制</h3><p>答：流量控制是为<strong>控制发送方发送速率，保证接收方能及时接收</strong>。通过滑动窗口实现流量控制。</p>
+<h3 id="2-3-5-拥塞控制"><a href="#2-3-5-拥塞控制" class="headerlink" title="2.3.5 拥塞控制"></a>2.3.5 拥塞控制</h3><p>答：拥塞控制是为了<strong>防止过多数据注入网络，导致网络过载</strong>。TCP的拥塞控制采用四个算法实现：慢开始、拥塞避免、快重传、快恢复。<br>发送方维护一个拥塞窗口(cwnd)的状态变量。<br><img src="/img/network/%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D.png" srcset="/img/loading.gif" alt="拥塞避免"></p>
+<ul>
+<li><strong>慢开始</strong>：cwnd初始值为1，每个轮次cwnd加倍</li>
+<li><strong>拥塞避免</strong>：慢开始门限ssthresh，当cwnd&gt;ssthresh时，进入拥塞避免，让cwnd每个轮次+1。出现超时，就令ssthresh = cwnd/2，重新进行慢开始。</li>
+<li><strong>快重传</strong>：接收方只对最后一个收到的有序报文段进行确认，若发送方介绍重复确认，就判断下一个报文段丢失，执行快重传，即立即重传下一报文段。</li>
+<li><strong>快恢复</strong>：若丢失个别报文段，执行快恢复，令ssthresh = cwnd/2, cwnd = ssthresh，直接进入拥塞避免。<br><img src="/img/network/%E5%BF%AB%E9%87%8D%E4%BC%A0.png" srcset="/img/loading.gif" alt="快重传"></li>
+</ul>
+<h2 id="2-4-基于TCP-UDP的协议"><a href="#2-4-基于TCP-UDP的协议" class="headerlink" title="2.4 基于TCP/UDP的协议"></a>2.4 基于TCP/UDP的协议</h2><ol>
+<li>基于TCP</li>
+</ol>
+<ul>
+<li>HTTP超文本传输协议，主要用于普通浏览。</li>
+<li>HTTPS安全超文本传输协议，HTTP协议的安全版本。</li>
+<li>FTP文件传输协议，用于文件传输。端口20/21。</li>
+<li>POP3邮局协议，从服务器中检索获取邮件。客户端行为不会影响服务器中邮件状态。</li>
+<li>SMTP简单邮件传输协议，用来发送和中转电子邮件。</li>
+<li>TELNET远程登录，通过一个终端登陆到网络。</li>
+<li>SSH，用于加密安全登陆。</li>
+<li>IMAP，<strong>保持Client和Server上邮件的同步</strong>，让用户随时都能访问服务器的邮件，客户端行为能影响服务器邮件的状态。</li>
+</ul>
+<ol start="2">
+<li>基于UDP</li>
+</ol>
+<ul>
+<li>BOOTP启动协议，应用于无盘设备。</li>
+<li>NTP网络时间协议，用于网络同步。</li>
+<li>DHCP动态主机配置协议，动态配置IP地址。</li>
+</ul>
+<ol start="3">
+<li>同时都有</li>
+</ol>
+<ul>
+<li>DNS域名服务，用于完成地址查找，邮件转发等工作。端口53。</li>
+</ul>
+<h1 id="3-UDP"><a href="#3-UDP" class="headerlink" title="3. UDP"></a>3. UDP</h1><h2 id="3-1-UDP首部格式"><a href="#3-1-UDP首部格式" class="headerlink" title="3.1 UDP首部格式"></a>3.1 UDP首部格式</h2><p>答：UDP首部只有8个字节，包括源端口、目的端口、长度、检验和。<br><img src="/img/network/UDP%E9%A6%96%E9%83%A8.png" srcset="/img/loading.gif" alt="UDP首部"></p>
+<h2 id="3-2-TCP和UDP区别"><a href="#3-2-TCP和UDP区别" class="headerlink" title="3.2 TCP和UDP区别"></a>3.2 TCP和UDP区别</h2><p><img src="/img/network/TCP%E5%92%8CUDP%E6%AF%94%E8%BE%83.png" srcset="/img/loading.gif" alt="TCPUDP比较"><br>答：总结下：</p>
+<ul>
+<li>TCP：面向连接的可靠交付，以字节流传输，效率低，耗费资源多，适用于对通信数据严格的场景，如文件传输。首部20-60字节。</li>
+<li>UDP：无连接的尽最大努力交付，以数据报文段传输，速度快，耗费资源少，适用于对通信速度要求高的场景，如在线视频。首部8个字节。</li>
+</ul>
+<h2 id="3-3-为什么视频用UDP"><a href="#3-3-为什么视频用UDP" class="headerlink" title="3.3 为什么视频用UDP"></a>3.3 为什么视频用UDP</h2><ol>
+<li>TCP需要三次握手，建立会话需要时间；</li>
+<li>TCP在网络拥塞时，会调整滑动窗口大小，影响传输速度；</li>
+<li>UDP无连接，没有拥塞控制，会以恒定速度发送数据，缺点是造成丢包，优点是实时性好。</li>
+</ol>
+<h2 id="3-4-UDP处理丢包"><a href="#3-4-UDP处理丢包" class="headerlink" title="3.4 UDP处理丢包"></a>3.4 UDP处理丢包</h2><ol>
+<li>发生丢包，就立即发送冗余包，尽快恢复数据；</li>
+<li>建立长期参考帧，解决连贯性问题；</li>
+<li>发生网络抖动，降低码率，保证传输数据小于网络带宽。</li>
+</ol>
+<h1 id="4-HTTP"><a href="#4-HTTP" class="headerlink" title="4. HTTP"></a>4. HTTP</h1><p>答：HTTP超文本传输协议，是一种<strong>无状态的面向连接的</strong>协议，规定了Client和Server间通信的格式。</p>
+<h2 id="4-1-长连接和短连接"><a href="#4-1-长连接和短连接" class="headerlink" title="4.1 长连接和短连接"></a>4.1 长连接和短连接</h2><p>答：HTTP协议的长连接和短连接，实质上就是TCP协议的长连接和短连接。</p>
+<ul>
+<li>HTTP/1.0默认使用短连接，即Client和Server每进行一次HTTP操作，就建立一次连接，任务结束就中断。</li>
+<li>HTTP/1.1起默认使用长连接，网页打开后，Client和Server间传输数据的TCP连接不会关闭，之后再进行访问就直接用已建立的连接。</li>
+</ul>
+<h2 id="4-2-如何理解无状态"><a href="#4-2-如何理解无状态" class="headerlink" title="4.2 如何理解无状态"></a>4.2 如何理解无状态</h2><p>答：HTTP的无状态，指<strong>协议对于事务处理没有记忆能力，不对通信状态进行保存，服务器无法判断用户身份</strong>。即打开一个服务器上的网页和上一次打开这个服务器上的网页之间没有任何联系。</p>
+<h2 id="4-3-如何保持会话状态"><a href="#4-3-如何保持会话状态" class="headerlink" title="4.3 如何保持会话状态"></a>4.3 如何保持会话状态</h2><ol>
+<li><p><strong>Cookie和Session保存会话状态，用Session来唯一标识用户，用Cookie当作用户通行证</strong>。</p>
+<p> 流程：</p>
+<ul>
+<li>服务端收到请求处理后生成一个SessionId，将SessionId存入Cookie返回给客户端，将Session内容存储在服务器上。</li>
+<li>下一次请求时，客户端带着Cookie来请求服务器，服务端从Cookie中取出SessionId，从而实现用户会话状态的保持。</li>
+</ul>
+</li>
+<li><p>第一次登陆后，<strong>服务端生成Token给客户端，客户端之后带着Token请求数据</strong>即可。减轻服务器的压力，减少频繁查询数据库。</p>
+</li>
+</ol>
+<h2 id="4-4-Cookie，Session和Token"><a href="#4-4-Cookie，Session和Token" class="headerlink" title="4.4 Cookie，Session和Token"></a>4.4 Cookie，Session和Token</h2><p>答：都是用来跟踪用户身份的会话方式。</p>
+<ul>
+<li><strong>Cookie：在客户端保存用户信息</strong>，安全性较差，并且浏览器会限制cookie数量。eg. 保存登录用户信息，下次自动填写登录信息；登录网 站后访问其他页面就不用登录。</li>
+<li><strong>Session：在服务端记录用户状态</strong>，安全性较高，但占用服务器性能。eg. 购物车添加物品，根据Session知道用户的购物车。</li>
+<li><strong>Token：在客户端保存认证授权状态</strong>，适合前后端分离的项目(处于不同服务器)。</li>
+</ul>
+<h2 id="4-5-Get和Post区别"><a href="#4-5-Get和Post区别" class="headerlink" title="4.5 Get和Post区别"></a>4.5 Get和Post区别</h2><p>答：HTTP定义了四种基本方法：Get、Post、Put和Delete。</p>
+<ul>
+<li>Get用来从服务器 查询 获取资源，Post用来 更新/创建 服务器资源；</li>
+<li><strong>Get</strong>将参数拼接在URL后，<strong>明文显示</strong>，Post用于提交表单，非明文显示；</li>
+<li>Get有长度限制，Post没有。</li>
+</ul>
+<h2 id="4-6-HTTP和HTTPS的区别"><a href="#4-6-HTTP和HTTPS的区别" class="headerlink" title="4.6 HTTP和HTTPS的区别"></a>4.6 HTTP和HTTPS的区别</h2><p>答：总结为：</p>
+<ul>
+<li><strong>HTTP</strong>超文本传输协议，<strong>明文传输</strong>。默认<strong>80端口</strong>。安全性低。</li>
+<li><strong>HTTPS=HTTP+SSL/TLS</strong>，<strong>加密传输</strong>。默认<strong>443端口</strong>。消耗资源多，需要证书。</li>
+</ul>
+<h3 id="4-6-1-SSL安全套接字层协议"><a href="#4-6-1-SSL安全套接字层协议" class="headerlink" title="4.6.1 SSL安全套接字层协议"></a>4.6.1 SSL安全套接字层协议</h3><p>答：利用数据加密，身份验证和消息完整性检测，保证数据传输完整性。建立在 TCP 和 应用层之间。</p>
+<ol>
+<li>身份验证机制：数字签名。</li>
+<li>数据加密：对称密钥算法。</li>
+<li>完整性验证：MAC算法。</li>
+<li>利用非对称加密算法加密密钥保证第三方无法获得密钥。</li>
+</ol>
+<p>流程：</p>
+<ol>
+<li>客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密，进行握手协商。</li>
+<li>双方协商生成对话密钥(握手产生的三个随机数)。</li>
+<li>双方采用对话密钥进行加密通信。</li>
+</ol>
+<h2 id="4-7-HTTP1-0，1-1和2-0的区别"><a href="#4-7-HTTP1-0，1-1和2-0的区别" class="headerlink" title="4.7 HTTP1.0，1.1和2.0的区别"></a>4.7 HTTP1.0，1.1和2.0的区别</h2><p>答：总结如下：</p>
+<ul>
+<li>HTTP1.0：默认短连接，每次请求都建立TCP连接，服务完成立即断开，开销大；错误状态响应码少；不支持断点续传。</li>
+<li>HTTP1.1：默认长连接；增加了响应码和缓存策略；支持传输部分数据。</li>
+<li>HTTP2.0：引入多路复用，通过一个TCP就能传输所有请求，提高性能。</li>
+</ul>
+<h2 id="4-8-常见的HTTP-状态码"><a href="#4-8-常见的HTTP-状态码" class="headerlink" title="4.8 常见的HTTP 状态码"></a>4.8 常见的HTTP 状态码</h2><p>答：粗略地看。<strong>1xx：临时响应/请求正在处理。2xx：成功。3xx：重定向。4xx：请求错误。5xx：服务器错误。</strong><br>常见的状态码有：</p>
+<ul>
+<li>200：成功。</li>
+<li>302：临时重定向到指定网页。</li>
+<li>304：not modified服务器允许访问资源，但请求未满足条件。</li>
+<li>400：bad request，请求报文存在语法错误。</li>
+<li>401：unauthorized未授权，要求身份验证。</li>
+<li>403：forbidden禁止，服务器拒绝访问。</li>
+<li>404：not found未找到，服务器找不到请求的网页。</li>
+<li>405：方法禁用，Post当成Get。</li>
+<li>502：服务器网关错误。</li>
+<li>503：service unavailable，服务器超负荷或停机维护。</li>
+<li>504：网关超时，nginx请求超时。</li>
+</ul>
+<h1 id="5-IP协议"><a href="#5-IP协议" class="headerlink" title="5. IP协议"></a>5. IP协议</h1><h2 id="5-1-IP数据报格式"><a href="#5-1-IP数据报格式" class="headerlink" title="5.1 IP数据报格式"></a>5.1 IP数据报格式</h2><p><img src="/img/network/IP%E6%95%B0%E6%8D%AE%E6%8A%A5.png" srcset="/img/loading.gif" alt="IP数据报"></p>
+<ul>
+<li>版本：有4(IPv4)和6(IPv6)两个值；</li>
+<li>首部长度：最大值为15，最小值为5(固定部分长度为20字节)；</li>
+<li>区分服务：一般不用，用来获得不同的服务；</li>
+<li>总长度：首部长度 + 数据部分长度；</li>
+<li>标识：若长度过长而分片，相同数据报的不同分片就有相同的标识符；</li>
+<li>片偏移：8字节，用于分片情况。</li>
+<li>生存时间：TTL，为了防止数据报一直滞留在网络中不消亡；</li>
+<li>协议：指明携带的数据交给传输层的哪个协议处理；</li>
+<li>首部检验和：数据报每经过一个路由器，都要重新计算检验和；</li>
+</ul>
+<p><img src="/img/network/%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%88%86%E7%89%87.png" srcset="/img/loading.gif" alt="数据报分片"></p>
+<h2 id="5-2-IP地址编制方式"><a href="#5-2-IP地址编制方式" class="headerlink" title="5.2 IP地址编制方式"></a>5.2 IP地址编制方式</h2><h3 id="5-2-1-分类"><a href="#5-2-1-分类" class="headerlink" title="5.2.1 分类"></a>5.2.1 分类</h3><p>答：IP地址 = {&lt;网络号&gt;，&lt;主机号&gt;}。不同分类由不同的网络长度。<br><img src="/img/network/%E7%BD%91%E7%BB%9C%E5%8F%B7%E4%B8%BB%E6%9C%BA%E5%8F%B7.png" srcset="/img/loading.gif" alt="主机号"></p>
+<h3 id="5-2-2-子网划分"><a href="#5-2-2-子网划分" class="headerlink" title="5.2.2 子网划分"></a>5.2.2 子网划分</h3><p>答：把主机号字段的一部分作为子网号。<strong>IP地址 = {&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}</strong>。使用子网，必须要配置子网掩码。</p>
+<p>eg. B类地址，默认子网掩码为255.255.0.0，若子类占2个字节，则子网掩码为255.255.192.0(8个1 8个1 11000000 8个0)。</p>
+<h3 id="5-2-3-无分类"><a href="#5-2-3-无分类" class="headerlink" title="5.2.3 无分类"></a>5.2.3 无分类</h3><p>答：无分类编址<strong>CIDR消除了分类和子网的概念</strong>。<strong>IP地址 = {&lt;网络前缀号&gt;,&lt;主机号&gt;}</strong>。一个CIDR能表示原来多个网络，且只要一个路由项，这种使用网络前缀减少路由表项的方式就是构成超网。<br>eg. 128.14.35.7/20表示前20位为网络前缀。</p>
+<h1 id="6-应用层其他协议"><a href="#6-应用层其他协议" class="headerlink" title="6. 应用层其他协议"></a>6. 应用层其他协议</h1><h2 id="6-1-FTP"><a href="#6-1-FTP" class="headerlink" title="6.1 FTP"></a>6.1 FTP</h2><p>FTP 文件传输协议，使用TCP连接，通过控制连接和数据连接来传送文件。FTP 需要保存用户状态，记录用户在远程的操作。</p>
+<ul>
+<li>控制连接：独立的tcp传输，传输 FTP 命令。端口号21；</li>
+<li>数据连接：传送文件数据，端口号20。</li>
+</ul>
+<p>控制连接贯穿始终，数据连接随着一个文件的传输而建立，随着传输结束而关闭。</p>
+<h2 id="6-2-电子邮件协议"><a href="#6-2-电子邮件协议" class="headerlink" title="6.2 电子邮件协议"></a>6.2 电子邮件协议</h2><h3 id="6-2-1-电子邮件系统"><a href="#6-2-1-电子邮件系统" class="headerlink" title="6.2.1 电子邮件系统"></a>6.2.1 电子邮件系统</h3><p>由 <strong>用户代理、邮件服务器和SMTP</strong> 三个核心组成。</p>
+<p>流程类似：</p>
+<ol>
+<li>发送方通过用户代理将邮件传送到发送方的邮件服务器；</li>
+<li>再传输到接收方的邮件服务器；</li>
+<li>之后被转发到接收方的邮箱里；</li>
+<li>接收方从邮件服务器里获取自己的邮件时需要通过邮件服务器的验证。</li>
+</ol>
+<h3 id="6-2-2-SMTP"><a href="#6-2-2-SMTP" class="headerlink" title="6.2.2 SMTP"></a>6.2.2 SMTP</h3><p>SMTP 简单邮件传输协议，是用来在邮件服务器间发送邮件报文的协议。端口25。</p>
+<p>SMTP 理解为 Push 协议，即是客户将信息推到服务器端，且 SMTP 只能用 ASCII 码，并将所有报文对象都放在一个报文中。</p>
+<h3 id="6-2-3-POP3"><a href="#6-2-3-POP3" class="headerlink" title="6.2.3 POP3"></a>6.2.3 POP3</h3><p>POP3 负责从邮件服务器中检索邮件，让用户读取。但无法解决客户端和服务端的邮件状态同步。</p>
+<p>比如：用户在一台设备查看邮件后，邮件在服务端删除，其他设备无法查看。</p>
+<h3 id="6-2-4-IMAP"><a href="#6-2-4-IMAP" class="headerlink" title="6.2.4 IMAP"></a>6.2.4 IMAP</h3><p>IMAP 能保持 Client 和 Server 上邮件的同步，让用户随时都能访问服务器的邮件。</p>
+<p>原理是将邮件和收件人的INBOX 或 文件夹关联。</p>
+<h2 id="6-3-DNS"><a href="#6-3-DNS" class="headerlink" title="6.3 DNS"></a>6.3 DNS</h2><p>DNS 域名系统由一个分布式数据库和一个主机查询应用层协议组成。能提供主机名和IP地址间的相互转换。端口号53，使用UDP传输。</p>
+<p>DNS 采用分布式的设计方案，服务器分为根服务器、顶级服务器、二级服务器、以此类推。查询分为递归查询和迭代查询，除了请求主机到本地 DNS 服务器是递归，其他都是迭代。</p>
+<h2 id="6-4-DHCP动态主机配置协议"><a href="#6-4-DHCP动态主机配置协议" class="headerlink" title="6.4 DHCP动态主机配置协议"></a>6.4 DHCP动态主机配置协议</h2><p>答：DHCP提供动态配置主机信息的功能，如IP地址、子网掩码、网关地址等。</p>
+<p>流程：</p>
+<ul>
+<li>Client通过UDP发送Discover报文，被广播到子网的所有主机上(不在同个子网则中继代理)</li>
+<li>Server收到报文，发送Offer报文给Client，其中包括Client需要的信息</li>
+<li>Client可能收到多个Offer报文，选择某个Server的报文后，发送Request报文给对应Server</li>
+<li>Server收到后，发送Ack报文，表示Client能使用其发送的信息</li>
+</ul>
+<p>理解为：客户端海投简历，拿了多个offer，最后只会跟一家签约。</p>
+<h2 id="6-5-TELNET远程登录协议"><a href="#6-5-TELNET远程登录协议" class="headerlink" title="6.5 TELNET远程登录协议"></a>6.5 TELNET远程登录协议</h2><p>答：TELNET用于登录远程主机并将远程主机上的输出返回。</p>
+<h1 id="7-网络层其余协议"><a href="#7-网络层其余协议" class="headerlink" title="7. 网络层其余协议"></a>7. 网络层其余协议</h1><h2 id="7-1-ARP地址解析协议"><a href="#7-1-ARP地址解析协议" class="headerlink" title="7.1 ARP地址解析协议"></a>7.1 ARP地址解析协议</h2><p>答：ARP地址解析协议的作用就是<strong>由IP地址获得MAC地址。</strong><br>实现：每个主机都有一个<strong>ARP缓存表</strong>，存着局域网内主机和路由器的IP地址到MAC地址的映射表。<br>流程：</p>
+<ul>
+<li>若主机A知道主机B的IP地址，但ARP缓存中没有该地址的MAC映射；</li>
+<li>主机A通过广播发送ARP请求；</li>
+<li>主机B收到请求后，发送ARP响应给主机A告知MAC地址；</li>
+<li>主机A向自己的ARP缓存中写入主机B的IP地址到MAC地址的映射。<br><img src="/img/network/arp.png" srcset="/img/loading.gif" alt="arp"></li>
+</ul>
+<h2 id="7-2-ICMP网际控制报文协议"><a href="#7-2-ICMP网际控制报文协议" class="headerlink" title="7.2 ICMP网际控制报文协议"></a>7.2 ICMP网际控制报文协议</h2><p>答：ICMP网际控制报文协议，是为了<strong>更有效地转发IP数据报和提高交付能力</strong>，被封装在IP数据报中。分为差错报告报文和询问报文。</p>
+<h3 id="7-2-1-ICMP报文格式"><a href="#7-2-1-ICMP报文格式" class="headerlink" title="7.2.1 ICMP报文格式"></a>7.2.1 ICMP报文格式</h3><p><img src="/img/network/icmp%E6%8A%A5%E6%96%87.png" srcset="/img/loading.gif" alt="icmp报文"></p>
+<h3 id="7-2-2-ICMP应用"><a href="#7-2-2-ICMP应用" class="headerlink" title="7.2.2 ICMP应用"></a>7.2.2 ICMP应用</h3><ol>
+<li>Ping</li>
+</ol>
+<ul>
+<li>用来<strong>测试两台主机间的连通性</strong>。</li>
+<li>原理是向目的主机发送<strong>ICMP Echo请求</strong>报文，目的主机收到后发送ICMP Echo回答报文。</li>
+<li>Ping根据时间计算往返时间，根据成功的响应次数计算丢包率。</li>
+</ul>
+<ol start="2">
+<li>Traceroute</li>
+</ol>
+<ul>
+<li>用来<strong>跟踪一个分组从源点到终点的路径</strong>。</li>
+<li>原理是IP数据报封装的是无法交付UDP，设置TTL，每经过一个路由器TTL–，到达目的主机时向源主机发送ICMP终点不可达差错报文。源主机就知道一路上经过的路由器地址和往返时间。</li>
+</ul>
+<h2 id="7-3-NAT网络地址转换"><a href="#7-3-NAT网络地址转换" class="headerlink" title="7.3 NAT网络地址转换"></a>7.3 NAT网络地址转换</h2><p>答：NAT网络地址转换用来<strong>将本地IP转换为全球IP</strong>。NAPT让多个内网的主机共用一个全球IP。<br><img src="/img/network/nat.png" srcset="/img/loading.gif" alt="nat"></p>
+<h2 id="7-4-路由选择"><a href="#7-4-路由选择" class="headerlink" title="7.4 路由选择"></a>7.4 路由选择</h2><p>路由器的功能是<strong>路由选择和分组转发</strong>。路由选择协议分为自治系统内部的路由选择(RIP,OSPF)和自治系统间(BGP)的路由选择。</p>
+<h3 id="7-4-1-RIP路由信息协议"><a href="#7-4-1-RIP路由信息协议" class="headerlink" title="7.4.1 RIP路由信息协议"></a>7.4.1 RIP路由信息协议</h3><p>答：RIP协议是基于<strong>距离向量</strong>的路由选择协议。距离指<strong>跳数</strong>，超过15为不可达。</p>
+<ul>
+<li>原理：RIP协议让路由器按固定时间<strong>和相邻路由器交换路由表</strong>，经过若干次交换后，所有路由器都会知道自治系统中任何一个网络的最短距离和下一跳路由器地址。</li>
+<li>优点：实现简单，开销小。</li>
+<li>缺点：最大距离为15，限制了网络规模。</li>
+</ul>
+<h3 id="7-4-2-OSPF开放最短路径优先"><a href="#7-4-2-OSPF开放最短路径优先" class="headerlink" title="7.4.2 OSPF开放最短路径优先"></a>7.4.2 OSPF开放最短路径优先</h3><p>答：OSPF采用<strong>洪泛法</strong>向自治系统中<strong>和所有路由器发送链路状态信息</strong>，之后各自根据最短路径算法算出路由，放在OSPF路由表，OSPF路由与其他路由比较后优的加入全局路由表。</p>
+<h3 id="7-4-3-BGP边界网关协议"><a href="#7-4-3-BGP边界网关协议" class="headerlink" title="7.4.3 BGP边界网关协议"></a>7.4.3 BGP边界网关协议</h3><p>答：BGP是一种用于AS自治系统间的动态路由协议，用于<strong>AS间交换路由信息</strong>。每个AS都要有一个BGP发言人，代表AS与其他AS交换信息。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C-tcp-http/">网络,tcp,http</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/29/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java虚拟机</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/28/RestFul-API/">
+                        <span class="hidden-mobile">RestFul API</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "计算机网络基础&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

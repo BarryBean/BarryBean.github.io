@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    3.4k 字
+                    3.5k 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    38
+                    39
                      分钟
                   </span>
                 
@@ -213,12 +213,17 @@
 <p>还可以理解为一种设计原则，当模块遇到错误，不终止执行，而是采用降级策略，尽量往下走。适用于主模块的分支流程。</p>
 <h1 id="2-Map接口"><a href="#2-Map接口" class="headerlink" title="2.Map接口"></a>2.Map接口</h1><h2 id="2-1-HashMap"><a href="#2-1-HashMap" class="headerlink" title="2.1 HashMap"></a>2.1 HashMap</h2><p>答：HashMap是基于Hash算法实现的由数组和链表组合的数据结构，允许使用null值和null键。</p>
 <p>总结：用数组存储，将冲突的key对象放入链表中，再发生冲突就在链表中顺序做对比。</p>
-<h3 id="2-1-1-插入元素"><a href="#2-1-1-插入元素" class="headerlink" title="2.1.1 插入元素"></a>2.1.1 插入元素</h3><ul>
-<li>put元素时，利用key的hashCode重新hash计算出当前对象的元素在数组中的下标；</li>
-<li>如果出现hash值相同的key，若key相同，则覆盖原始值；若key不同即出现冲突，则将当前的key-value放入链表中</li>
+<h3 id="2-1-1-插入元素"><a href="#2-1-1-插入元素" class="headerlink" title="2.1.1 插入元素"></a>2.1.1 插入元素</h3><p>根据源码是 putVal() 进行添加元素的操作。</p>
+<ul>
+<li>利用key的hashCode计算出当前对象的元素在数组中的下标；</li>
+<li>如果位置上没有元素，就直接插入；</li>
+<li>如果位置上有元素，则比较key，若key相同，则覆盖原始值；若key不同，先判断是否是树节点，是就用 putTreeVal() 添加元素，不是就拉链法插入链表。</li>
+<li>若插入后链表长度 &gt; 8，转成红黑树或者扩容。</li>
+</ul>
+<ol>
 <li>java8前用头插法，新来的值代替原有值，原有值被往后推。问题是，扩容后容易形成环形链表。</li>
 <li>java8后用尾插法。在扩容同时保证链表元素原来的顺序，避免形成环。</li>
-</ul>
+</ol>
 <h3 id="2-1-2-读取元素"><a href="#2-1-2-读取元素" class="headerlink" title="2.1.2 读取元素"></a>2.1.2 读取元素</h3><ul>
 <li>get元素时，找hash值对应的下标，在进一步判断key是否相同，从而找到对应值。</li>
 </ul>

@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="BarryBean">
   <meta name="keywords" content="">
-  <title>Socket相关 - BarryBean&#39;s blog</title>
+  <title>hexo搭建博客 - BarryBean&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -141,8 +141,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-04-28 15:51">
-                    星期二, 四月 28日 2020, 3:51 下午
+                  <time datetime="2020-04-29 19:45">
+                    星期三, 四月 29日 2020, 7:45 晚上
                   </time>
                 </div>
               
@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.6k 字
+                    390 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    17
+                    4
                      分钟
                   </span>
                 
@@ -191,84 +191,57 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="1-IO模型"><a href="#1-IO模型" class="headerlink" title="1. IO模型"></a>1. IO模型</h1><p>Socket的输入操作有两步。</p>
-<ol>
-<li>wait for data - 等待网络传输数据到达，到达后复制到内核缓冲区；</li>
-<li>copy data from kernel to user - 把数据从内核缓冲区复制到应用进程缓冲区。</li>
-</ol>
-<p>涉及到两个对象：application调用这个IO的进程/线程，kernel系统内核。</p>
-<h2 id="1-1-同步阻塞IO"><a href="#1-1-同步阻塞IO" class="headerlink" title="1.1 同步阻塞IO"></a>1.1 同步阻塞IO</h2><p>用户线程发出请求后就一直被阻塞，直到数据到达并从内核缓冲区复制到进程缓冲区才返回。</p>
-<p><img src="/img/network/%E9%98%BB%E5%A1%9E%E5%BC%8FIO.png" srcset="/img/loading.gif" alt="阻塞式IO"></p>
-<h2 id="1-2-同步非阻塞IO"><a href="#1-2-同步非阻塞IO" class="headerlink" title="1.2 同步非阻塞IO"></a>1.2 同步非阻塞IO</h2><p>用户线程发出请求后，内核立即返回错误码，但用户线程需要不断发出IO请求询问内核数据到达没，到达了才进行第二阶段。这个过程叫做轮询。</p>
-<p><img src="/img/network/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png" srcset="/img/loading.gif" alt="非阻塞IO"></p>
-<h2 id="1-3-IO多路复用-异步阻塞IO"><a href="#1-3-IO多路复用-异步阻塞IO" class="headerlink" title="1.3 IO多路复用/异步阻塞IO"></a>1.3 IO多路复用/异步阻塞IO</h2><p>又称为事件驱动IO，单个进程有处理多个IO的能力，避免一个socket一个线程的开销和切换。<strong>用户注册多个socket，reactor一对多监听，不断调用select读取激活的socket，再通知对应用户进程进行第二阶段</strong>。<del>再一对多分发给对应处理器处理</del>。</p>
-<p><img src="/img/network/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8.png" srcset="/img/loading.gif" alt="IO多路复用"></p>
-<p>使用了 Reactor 反应堆模型。</p>
-<ul>
-<li>将用户线程轮询IO操作状态的工作交给事件处理器，用户线程可以继续执行做其他的工作，Reactor线程负责调用内核的select函数检查socket状态。</li>
-<li>当有socket被激活时，则通知相应的用户线程，执行handle_event进行数据读取、处理的工作。</li>
-<li>由于select函数是阻塞的，因此多路IO复用模型也被称为异步阻塞IO模型。</li>
-</ul>
-<h2 id="1-4-信号驱动IO-异步非阻塞IO"><a href="#1-4-信号驱动IO-异步非阻塞IO" class="headerlink" title="1.4 信号驱动IO/异步非阻塞IO"></a>1.4 信号驱动IO/异步非阻塞IO</h2><p>sigaction系统调用，内核立即返回，应用进程可以去干其他事，<strong>数据到达后</strong>，内核发送SIGIO信号给应用进程<strong>通知应用进程可以进行第二阶段</strong>，IO的数据复制。</p>
-<p>相比于轮询方式，CPU利用率更高。<br><img src="/img/network/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png" srcset="/img/loading.gif" alt="信号驱动IO"></p>
-<h2 id="1-5-异步IO"><a href="#1-5-异步IO" class="headerlink" title="1.5 异步IO"></a>1.5 异步IO</h2><p>aio_read系统调用立即返回，应用进程可以去干其他事，内核在<strong>完成所有操作后，通知应用进程</strong>IO已经完成。<br><img src="/img/network/%E5%BC%82%E6%AD%A5IO.png" srcset="/img/loading.gif" alt="异步IO"></p>
-<h2 id="1-6-比较"><a href="#1-6-比较" class="headerlink" title="1.6 比较"></a>1.6 比较</h2><ul>
-<li>同步IO：将数据从内核缓冲区复制到应用进程缓冲区时，应用进程会阻塞。</li>
-<li>异步IO：第二阶段不会阻塞。</li>
-<li>阻塞IO：第一阶段就阻塞线程，直到获得数据。</li>
-<li>非阻塞IO：线程发出请求立即返回，但需要轮询或者再次进行系统调用进行第二阶段。</li>
-</ul>
-<h1 id="2-wakeup-callback机制"><a href="#2-wakeup-callback机制" class="headerlink" title="2. wakeup callback机制"></a>2. wakeup callback机制</h1><p>Linux 内核的事件唤醒回调机制是IO多路复用的本质。</p>
-<p>概括来说，Linux<strong>通过睡眠队列管理所有等待 Socket 事件的线程，通过 wakeup 机制异步唤醒整个睡眠队列上等待事件的线程，通知线程事件发生</strong>。</p>
-<ol>
-<li>睡眠等待<ul>
-<li>select、poll、epoll 陷入内核，判断监控的 socket 是否有关心的事件发生，如果没，则为当前 process 构建一个 wait_entry 节点，插入到监控 socket 的 sleep_list；</li>
-<li>进入循环的 schedule 直到关心的事件发生；</li>
-<li>事件发生后，将当前线程的 wait_entry 节点从 socket 的 sleep_list 中删除。</li>
-</ul>
-</li>
-<li>异步唤醒<ul>
-<li>socket 顺序遍历其睡眠队列，依次调用每个节点的 callback 函数；</li>
-<li>直到完成遍历或者遇到某个排他节点。</li>
-</ul>
+              <h1 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>安装 Node.js。<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网下载</a></li>
+<li>安装 Git。<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网下载</a></li>
+<li>使用 npm 或者 cnpm，进行 hexo 的安装。<pre><code class="hljs shell">npm install -g hexo-cli</code></pre>
+npm太慢就用cnpm，设置为淘宝源。<pre><code class="hljs shell">npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm install -g hexo-cli</code></pre>
+
 </li>
 </ol>
-<h1 id="3-IO复用机制"><a href="#3-IO复用机制" class="headerlink" title="3. IO复用机制"></a>3. IO复用机制</h1><p>fd 文件描述符，用于表述指向文件的引用的抽象化概念。</p>
-<h2 id="3-1-select"><a href="#3-1-select" class="headerlink" title="3.1 select"></a>3.1 select</h2><p>底层通过一个long类型的数组 fd_set，存放文件句柄。</p>
-<p>每次调用select时，把 fd_set 集合从用户态复制到内核态，在内核轮询遍历集合，且对集合有 1024 的大小限制。</p>
-<p>内部的轮询，是通过为每个 socket 添加 poll 逻辑，用来收集该 socket 发生的事件。轮询就是遍历 socket 调用 poll 逻辑，直到有事件发生。</p>
-<p>所以存在三个问题：</p>
-<ol>
-<li>fd 集合限制为 1024；</li>
-<li>fd 集合每次都要从用户态拷贝到内核态；</li>
-<li>每次都在遍历集合收集可读数据。</li>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li>初始化 hexo。</li>
 </ol>
-<h2 id="3-2-poll"><a href="#3-2-poll" class="headerlink" title="3.2 poll"></a>3.2 poll</h2><p>本质上和select一样，解决了 fd 集合大小限制问题。底层通过链表形式 pollfd 实现，所以没有最大连接数的限制。</p>
-<p>其他两个缺点并没有改进，不适用大并发场景。</p>
-<h2 id="3-3-epoll"><a href="#3-3-epoll" class="headerlink" title="3.3 epoll"></a>3.3 epoll</h2><p>只适用于Linux。</p>
-<ol>
-<li>针对集合拷贝。<ul>
-<li>使用<strong>事件回调通知</strong>，通过 <strong>epoll_ctl() 注册fd进行增删改，调用 epoll_wait() 等待事件产生</strong>。</li>
-<li>内核 2.6.8 之前底层使用哈希表存储，之后使用红黑树</li>
-<li>epoll_wait() 通过<strong>将内核空间和用户空间(都是虚拟地址)映射到同一块物理内存地址</strong>，用来减少用户态和内核态间的数据交换。</li>
-</ul>
-</li>
-<li>针对集合遍历。<ul>
-<li>引入中间层，<strong>为每个 socket 提供单独的回调函数，当其就绪时将自身加入准备队列</strong> ready_list 中；</li>
-<li><strong>等待线程的回调函数遍历 ready_list</strong> 上所有的 socket，调用 poll 逻辑收集事件，唤醒线程。</li>
-</ul>
+<p>先建立存放日后博客的文件夹，在文件夹路径下打开 bash 窗口，进行 hexo 安装。</p>
+<pre><code class="hljs shell">hexo init</code></pre>
+<ol start="2">
+<li>新建文章<pre><code class="hljs shell">// 在 source/_posts 目录下生成对应的 md 文件
+hexo new "文章名称"</code></pre></li>
+<li>清理缓存<pre><code class="hljs shell">hexo clean</code></pre></li>
+<li>生成静态文件<pre><code class="hljs shell">hexo g</code></pre></li>
+<li>启动博客<pre><code class="hljs shell">hexo s</code></pre>
+
 </li>
 </ol>
-<h3 id="3-3-1-工作模式"><a href="#3-3-1-工作模式" class="headerlink" title="3.3.1 工作模式"></a>3.3.1 工作模式</h3><ul>
-<li>Level Triggered 水平触发。默认模式，只要fd还有事件，每次 epoll_wait() 都会再次通知进程。</li>
-<li>Edge Triggered 边沿触发。通知之后进程必须立即处理事件，下次 epoll_wait() 不会收到该fd的通知。</li>
-</ul>
-<h2 id="3-4-比较"><a href="#3-4-比较" class="headerlink" title="3.4 比较"></a>3.4 比较</h2><p> 方式 |select | poll | epoll|<br>|—|—|—|—|<br>操作方式|遍历 |遍历|回调|<br>底层实现|数组| 链表|哈希表/红黑树|<br>最大连接数|1024 or 2048| 无上限|无上限|<br>IO效率|轮询O(n)|轮询O(n)|事件回调，将就绪的fd放进就绪队列，每次只用判断队列是否为空O(1)<br>fd拷贝|每次调用都把fd集合从用户态拷贝到内核态|每次调用都把fd集合从用户态拷贝到内核态|调用epoll_ctl()时fd拷贝进内核并保存</p>
-<h2 id="3-5-适用场景"><a href="#3-5-适用场景" class="headerlink" title="3.5 适用场景"></a>3.5 适用场景</h2><ol>
-<li>select的时间精度是微秒，适用实时性要求高的场景。</li>
-<li>poll没有最大描述符限制，若实时性要求不高且平台支持，用poll。</li>
-<li>epoll适用Linux平台，且有大量描述符需要同时轮询。</li>
+<p>注：每次修改主题或修改文章，强力建议都要<code>hexo clean</code> 清理下，再进行生成和重新启动。</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="github-io-白嫖"><a href="#github-io-白嫖" class="headerlink" title="github.io 白嫖"></a><code>github.io</code> 白嫖</h2><ol>
+<li>生成github.io仓库</li>
 </ol>
+<p>首先注册并登录 GitHub，创建新的 public 仓库，仓库名称一定要是：<br><code>YourGitHubName.github.io</code></p>
+<p>注：<strong>YourGitHubName是你的GitHub昵称，大小写敏感</strong>！部署好后，链接都是小写。</p>
+<ol start="2">
+<li><p>本地安装 Hexo 的 git 部署插件</p>
+<pre><code class="hljs yml"><span class="hljs-string">npm</span> <span class="hljs-string">install</span> <span class="hljs-string">--save</span> <span class="hljs-string">hexo-deployer-git</span></code></pre>
+</li>
+<li><p>本地修改 _config.yaml 文件</p>
+</li>
+</ol>
+<p>在 Hexo 目录下的 _config.yaml 文件中，对 #Deployment 做如下修改：</p>
+<pre><code class="hljs yml"><span class="hljs-comment"># Deployment</span>
+<span class="hljs-comment">## Docs: https://hexo.io/docs/deployment.html</span>
+<span class="hljs-attr">deploy:</span>
+  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span>
+  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/YourGitHubName/YourGitHubName.github.io</span>
+  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span></code></pre>
+<p>注：type、repo 和 branch 冒号后都有一个空格。</p>
+<ol start="4">
+<li>部署<pre><code class="hljs shell">hexo d</code></pre>
+部署成功后，浏览器输入 <code>YourGitHubName.github.io</code> 即可访问。</li>
+</ol>
+<h1 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h1><p>hexo 有很多主题能进行页面美化，常见的有 next、Yilia、Melody。</p>
+<p>我使用的是国人制作的 Fluid，功能多样，文档详实，还有微信群…</p>
+<p>Fluid 的 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener">GitHub</a> 和 <a href="https://hexo.fluid-dev.com/docs/guide/" target="_blank" rel="noopener">官方文档</a>。</p>
 
             </article>
             <hr>
@@ -278,7 +251,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
                     
                   </div>
                 
@@ -286,9 +259,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Socket/">Socket</a>
-                    
-                      <a class="hover-with-bg" href="/tags/IO/">IO</a>
+                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
                     
                   </div>
                 
@@ -301,18 +272,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/04/28/RestFul-API/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RestFul API</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/04/27/Redis/">
-                        <span class="hidden-mobile">Redis</span>
+                      <a href="/2020/04/29/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <span class="hidden-mobile">Java虚拟机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -452,7 +417,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Socket相关&nbsp;",
+        "hexo搭建博客&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
