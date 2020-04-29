@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="BarryBean">
+  <meta name="keywords" content="">
+  <title>Redis - BarryBean&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>BarryBean's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/sky.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-27 22:16">
+                    星期一, 四月 27日 2020, 10:16 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    43
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h1><h2 id="1-1-NoSQL"><a href="#1-1-NoSQL" class="headerlink" title="1.1 NoSQL"></a>1.1 NoSQL</h2><p>答：NoSQL(Not Only SQL)，泛指非关系型的数据库，目的是解决高并发、高拓展和大数据储存问题。细分为：键值型(Redis)，列存储(HBase)，文档型(MongoDB)，图形(Neo4j)。</p>
+<h2 id="1-2-Redis"><a href="#1-2-Redis" class="headerlink" title="1.2 Redis"></a>1.2 Redis</h2><p>答：Redis(Remote Dictionary Server远程字典服务)是一款<strong>高性能、高并发</strong>的<strong>key-value型分布式内存数据库</strong>，基于内存运行且支持<strong>持久化</strong>的NoSQL数据库。常被用于缓存和消息队列。</p>
+<h3 id="1-2-1-优缺点"><a href="#1-2-1-优缺点" class="headerlink" title="1.2.1 优缺点"></a>1.2.1 优缺点</h3><p>优点</p>
+<ul>
+<li>高性能/读写性能优异。用户第一次访问数据后，数据存储在缓存中，之后再访问直接从缓存中获得，相当于直接操作内存。</li>
+<li>高并发。操作缓存能承受的请求远大于直接访问数据库，将部分数据放在redis中，能提高并发程度。</li>
+<li>支持数据持久化，AOF和RDB两种方式。</li>
+<li>支持事务，所有操作都是原子性的。</li>
+<li>数据类型丰富，string、hash、set、list、sorted set。</li>
+<li>支持集群模式，如主从复制做到读写分离。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>数据库容量受到物理内存的限制；</li>
+<li>不具备自动容错和恢复功能。如主机宕机，部分数据未能同步到从机，切换IP后会导致数据不一致；</li>
+<li>扩容难。</li>
+</ul>
+<h3 id="1-2-2-为什么执行速度快"><a href="#1-2-2-为什么执行速度快" class="headerlink" title="1.2.2 为什么执行速度快"></a>1.2.2 为什么执行速度快</h3><p>答：总结如下：</p>
+<ul>
+<li>基于内存实现，轻量级数据库；</li>
+<li>单线程操作，避免切换上下文，也没有线程安全问题；</li>
+<li>多路IO复用模型，一个线程监控多个IO流，事件放队列，派发器分发，对应处理器处理。</li>
+</ul>
+<h3 id="1-2-3-Redis和map区别"><a href="#1-2-3-Redis和map区别" class="headerlink" title="1.2.3 Redis和map区别"></a>1.2.3 Redis和map区别</h3><p>答：缓存分为本地缓存和分布式缓存。</p>
+<ul>
+<li>map是本地缓存，优点是轻量快速，缺点是多实例情况下，每个实例都有一个缓存。</li>
+<li>Redis是分布式缓存，多实例情况下，每个实例共用一个缓存，具有一致性，缺点是架构复杂。</li>
+</ul>
+<h3 id="1-2-4-Redis和memcached区别"><a href="#1-2-4-Redis和memcached区别" class="headerlink" title="1.2.4 Redis和memcached区别"></a>1.2.4 Redis和memcached区别</h3><p>答：主要是四点：</p>
+<ul>
+<li>Redis数据类型丰富，memcached只支持String类型；</li>
+<li>Redis支持数据持久化，RDB和AOF，memcached全部存在内存；</li>
+<li>Redis支持集群模式(主从，哨兵)，memcached没有原生的集群模式；</li>
+<li>Redis是单线程的多路IO复用模型，memcached是多线程的非阻塞IO复用模型</li>
+</ul>
+<h2 id="1-3-数据类型和应用场景"><a href="#1-3-数据类型和应用场景" class="headerlink" title="1.3 数据类型和应用场景"></a>1.3 数据类型和应用场景</h2><p>答：支持五种数据类型作为value，key值都是字符串类型。</p>
+<ul>
+<li>string：最大为512M。用作计数器，缓存，用户的Session等；</li>
+<li>list：有序列表，基于链表实现。用作分页查询，列表功能，消息队列/异步队列(左进右出)；</li>
+<li>set：自动去重的列表。用作全局去重等功能，比如共同好友；</li>
+<li>sorted set：多了权重参数。用来做排序，比如排行榜Top10功能，延时队列(时间戳做排序，内容做key，消费者根据score获取数据)；</li>
+<li>hash：存储特定结构的信息/结构化数据。比如用户信息。</li>
+<li>pub/sub：主题订阅者模式，实现1:N的消息队列，但消费者下线后，生产的消息就丢失了。</li>
+</ul>
+<h2 id="1-4-底层数据类型"><a href="#1-4-底层数据类型" class="headerlink" title="1.4 底层数据类型"></a>1.4 底层数据类型</h2><p>Redis底层的数据类型有</p>
+<ol>
+<li>动态字符串SDS：Redis封装的字符串，具有良好的伸缩性。O(1)获取字符串长度，空间预分配防止溢出。</li>
+<li>链表：顺序存储对象信息，双端链表，保证无环。</li>
+<li>字典：key-value 存储方式。通过hash值计算存储位置，使用拉链法解决哈希冲突，容量过大rehash重新分配。</li>
+<li>跳跃表：sort set 的底层实现之一，基于多个有序链表实现。查找时，从上层指针开始，找到对应的区间后再到下一层查找。因为不用旋转维护平衡所以，插入速度比红黑树快。<br><img src="/img/db/%E8%B7%B3%E8%B7%83%E8%A1%A8%E6%9F%A5%E6%89%BE.png" srcset="/img/loading.gif" alt="跳跃表查找"></li>
+<li>整数集合：只能存储少量整数数据的特殊集合。</li>
+<li>压缩列表：为节约内存而存在的结构，当列表项为小整数或短字符串，就用压缩列表。列表键和哈希键的底层实现之一。</li>
+</ol>
+<h2 id="1-5-Redis线程模型"><a href="#1-5-Redis线程模型" class="headerlink" title="1.5 Redis线程模型"></a>1.5 Redis线程模型</h2><p>答：Redis是<strong>单线程</strong>的。</p>
+<ul>
+<li>内部使用了单线程的<strong>文件事件处理器</strong> file event handler。</li>
+<li>采用<strong>IO多路复用</strong>机制同时监听多个socket，将socket上的事件放入队列，事件派发器每次从队列中取出一个事件，交给对应的事件处理器处理。</li>
+<li>文件事件处理器包含4个部分：多个socket，IO多路复用程序，文件事件派发器，事件处理器。</li>
+</ul>
+<p>总结：<strong>一对多监听，事件放队列，派发器分发，对应处理器处理</strong></p>
+<h1 id="2-持久化"><a href="#2-持久化" class="headerlink" title="2. 持久化"></a>2. 持久化</h1><p>答：把内存数据写入磁盘，保证宕机再重启数据能恢复。有RDB和AOF两种持久化方式。</p>
+<h2 id="2-1-RDB-快照持久化"><a href="#2-1-RDB-快照持久化" class="headerlink" title="2.1 RDB-快照持久化"></a>2.1 RDB-快照持久化</h2><p>答：<strong>将内存中的数据集以快照形式写入磁盘，恢复时载入快照到内存。</strong> Redies<strong>默认采用</strong>。</p>
+<h3 id="2-1-1-触发方式"><a href="#2-1-1-触发方式" class="headerlink" title="2.1.1 触发方式"></a>2.1.1 触发方式</h3><ul>
+<li>自动触发：每隔多少秒，有多少数据发生变化，就自动触发持久化；</li>
+<li>手动触发：bgsave命令，异步进行创建快照。</li>
+</ul>
+<h3 id="2-1-2-优缺点"><a href="#2-1-2-优缺点" class="headerlink" title="2.1.2 优缺点"></a>2.1.2 优缺点</h3><ul>
+<li>优点：只有一个.rdb文件，恢复快，随时可以转移，性能好。</li>
+<li>缺点：安全性差，没法实时持久化。(隔段时间持久化一次，频繁手动性能低)</li>
+</ul>
+<h3 id="2-1-3-原理"><a href="#2-1-3-原理" class="headerlink" title="2.1.3 原理"></a>2.1.3 原理</h3><ul>
+<li>fork：redis通过创建子进程来进行RDB操作</li>
+<li>cow：copy on write，子进程创建后，父子进程共享数据段，父进程继续提供读写服务，写脏的页面数据会逐渐和子进程分离开来。</li>
+<li>当父进程要更改其中某片数据时（如执行一个写命令），操作系统会将该片数据复制一份以保证子进程的数据不受影响，所以新的RDB文件存储的是执行fork一刻的内存数据。</li>
+</ul>
+<h2 id="2-2-AOF-增量持久化"><a href="#2-2-AOF-增量持久化" class="headerlink" title="2.2 AOF-增量持久化"></a>2.2 AOF-增量持久化</h2><p>答：<strong>将redis执行的所有写命令记录到日志文件中，恢复时将AOF文件载入内存。</strong>一般采用<strong>每秒钟同步一次</strong>everysec的方式。默认关闭，appendonly yes 开启配置。</p>
+<h3 id="2-2-1-AOF重写"><a href="#2-2-1-AOF重写" class="headerlink" title="2.2.1 AOF重写"></a>2.2.1 AOF重写</h3><p>答：AOF文件随着服务器运行时间增长而越来越大，AOF重写能<strong>减小文件大小</strong>，而且<strong>数据库状态一致</strong>。</p>
+<ul>
+<li>读取数据库现有的键值对状态，<strong>用一条命令替代</strong>之前对键值对操作的<strong>多条命令</strong>，再用bgrewriteaof实现重写。</li>
+<li>在<strong>子进程中执行</strong>。redis会维护一个AOF重写缓冲区，在子进程创建AOF期间，记录写命令；当子进程重写完成后，服务器将重写缓冲区内的内容添加到AOF文件的末尾，以保持状态一致。</li>
+</ul>
+<p>流程</p>
+<ul>
+<li>从主进程中fork出子进程，并拿到fork时的AOF文件数据写到一个临时AOF文件中</li>
+<li>在重写过程中，redis收到的命令会同时写到AOF缓冲区和重写缓冲区中，这样保证重写不丢失重写过程中的命令</li>
+<li>重写完成后通知主进程，主进程会将AOF缓冲区中的数据追加到子进程生成的文件中</li>
+<li>redis会原子的将旧文件替换为新文件，并开始将数据写入到新的aof文件上</li>
+</ul>
+<p>总结：<strong>用个缓冲区，暂时存操作，完成重写后，再添文件末。</strong></p>
+<h3 id="2-2-2-优缺点"><a href="#2-2-2-优缺点" class="headerlink" title="2.2.2 优缺点"></a>2.2.2 优缺点</h3><ul>
+<li>优点：安全性好，秒级持久化。</li>
+<li>缺点：需要更多的IO资源，AOF文件也较大，恢复慢；</li>
+</ul>
+<p>注：redis4.0后，支持RDB和AOF的混合持久化，RDB作为全量备份，AOF作为增量备份。</p>
+<h1 id="3-过期策略和内存淘汰"><a href="#3-过期策略和内存淘汰" class="headerlink" title="3. 过期策略和内存淘汰"></a>3. 过期策略和内存淘汰</h1><p>Redis是键值型数据库，缓存的key总是会有过期时间，过期策略就是回收这些过期的key。</p>
+<p>内存淘汰是在Redis缓存内存不足时，又有新写入，需要淘汰过期内存的策略。</p>
+<p><strong>注：过期回收针对过期key，内存淘汰针对内存不足。</strong></p>
+<h2 id="3-1-过期回收策略"><a href="#3-1-过期回收策略" class="headerlink" title="3.1 过期回收策略"></a>3.1 过期回收策略</h2><p>答：redis中的数据过期使用了<strong>定期删除和惰性删除相结合</strong>的方式。</p>
+<ul>
+<li>定期删除：redis默认每隔100ms就随机抽取一定量的数据判断是否过期，过期就删除；</li>
+<li>惰性删除：在获取一个key时，redis会检查这个key是否过期，若过期则删除。</li>
+</ul>
+<p>如果定期删除漏掉很多过期key，用户也没及时去查，没用惰性删除，导致大量过期key积压在内存中，消耗资源，所以需要内存淘汰。</p>
+<h2 id="3-2-内存淘汰-保存热点数据"><a href="#3-2-内存淘汰-保存热点数据" class="headerlink" title="3.2 内存淘汰/保存热点数据"></a>3.2 内存淘汰/保存热点数据</h2><h3 id="3-2-1-淘汰策略"><a href="#3-2-1-淘汰策略" class="headerlink" title="3.2.1 淘汰策略"></a>3.2.1 淘汰策略</h3><p>答：redis提供了6种数据淘汰策略。</p>
+<p>设置过期时间的key</p>
+<ul>
+<li><strong>volatile-lru</strong>：用LRU算法移除设置了过期时间的key；</li>
+<li><strong>volatile-ttl</strong>：移除设置了过期时间的有更早过期时间的key；</li>
+<li><strong>volatile-random</strong>：随机移除设置了过期时间的key；</li>
+</ul>
+<p>全局的key</p>
+<ul>
+<li><strong>allkeys-lru</strong>：内存不足时，用LRU算法移除任意key；</li>
+<li><strong>allkeys-random</strong>：随机移除任意key；</li>
+<li><strong>no-eviction</strong>：不移除任何key，只返回错误信息。默认。</li>
+</ul>
+<h3 id="3-2-2-回收流程"><a href="#3-2-2-回收流程" class="headerlink" title="3.2.2 回收流程"></a>3.2.2 回收流程</h3><ol>
+<li>客户端执行新命令</li>
+<li>Redis检查内存使用情况，大于maxmemory则按设定的内存淘汰策略回收内存</li>
+<li>继续执行命令</li>
+</ol>
+<h1 id="4-事务"><a href="#4-事务" class="headerlink" title="4. 事务"></a>4. 事务</h1><h2 id="4-1-Redis事务"><a href="#4-1-Redis事务" class="headerlink" title="4.1 Redis事务"></a>4.1 Redis事务</h2><p>答：redis事务本质是通过MULTI、EXEC、WATCH和DISCARD等一组命令集合执行。执行过程是<strong>一次性的</strong>(不会中断一直运行)，<strong>顺序性的</strong>(串行化执行)，<strong>排他性的</strong>(不会在中间插入别的命令)。</p>
+<h2 id="4-2-相关命令"><a href="#4-2-相关命令" class="headerlink" title="4.2 相关命令"></a>4.2 相关命令</h2><ul>
+<li>MULTI：标记一个事务块的开始。</li>
+<li>EXEC：执行所有事务块内的命令。</li>
+<li>DISCARD：取消事务，放弃执行事务块内的所有命令。</li>
+<li>UNWATCH：取消 WATCH 命令对所有 key 的监视。</li>
+<li>WATCH key [key …]：监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</li>
+</ul>
+<h2 id="4-3-内部实现"><a href="#4-3-内部实现" class="headerlink" title="4.3 内部实现"></a>4.3 内部实现</h2><ol>
+<li>redis<strong>不支持回滚，不保证原子性</strong>，事务失败也继续执行。</li>
+<li>单条命令是原子性，但整个事务不是原子性。</li>
+<li>命令语法错误或操作类型不规范才停止执行。</li>
+</ol>
+<h1 id="5-集群方案"><a href="#5-集群方案" class="headerlink" title="5. 集群方案"></a>5. 集群方案</h1><h2 id="5-1-主从复制机制"><a href="#5-1-主从复制机制" class="headerlink" title="5.1 主从复制机制"></a>5.1 主从复制机制</h2><p>答：主从(Master-Slave)机制，主机以写为主，从机以读为主，有效避免单点故障导致的数据丢失，主从数据库的数据实时同步。</p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li>从数据库启动，向主数据库发送同步请求；</li>
+<li>主数据库收到后，进行RDB快照，并将快照过程中的收到命令缓存起来；</li>
+<li>快照完成后，将.rdb文件和所有缓存的命令发给从数据库；</li>
+<li>从数据库收到后，进行快照同步并执行收到的缓存命令。<br><img src="/img/db/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></li>
+</ol>
+<h2 id="5-2-哨兵模式"><a href="#5-2-哨兵模式" class="headerlink" title="5.2 哨兵模式"></a>5.2 哨兵模式</h2><p>答：哨兵(Sentinel)模式，用于管理多个Redis服务器。哨兵至少需要3个实例才能保持健壮性。一般都使用哨兵 + 主从架构保证<strong>高可用</strong>。</p>
+<h3 id="5-2-1-功能"><a href="#5-2-1-功能" class="headerlink" title="5.2.1 功能"></a>5.2.1 功能</h3><p>主要有三个功能：</p>
+<ul>
+<li><strong>监控</strong>：哨兵会不断检查主机和从机是否运行正常；</li>
+<li><strong>通知</strong>：当被监控的某个redis发生问题，哨兵会发送通知；</li>
+<li><strong>故障迁移</strong>：当主机不能正常工作，哨兵会选择主机的一个从机升级为主机，让其他从机改为复制新主机。旧主机复活时，将其变为新主机的从机，最后向客户端通知主机的变化。</li>
+</ul>
+<h3 id="5-2-2-节点下线"><a href="#5-2-2-节点下线" class="headerlink" title="5.2.2 节点下线"></a>5.2.2 节点下线</h3><ul>
+<li>主观下线：哨兵认为此redis节点发生了故障，就主观下线该节点。通过心跳包检测实现。</li>
+<li>客观下线：所有哨兵中的多数(&gt;quorum)认为此redis节点主观下线，则该节点客观下线。</li>
+</ul>
+<h3 id="5-2-3-Leader选举"><a href="#5-2-3-Leader选举" class="headerlink" title="5.2.3 Leader选举"></a>5.2.3 Leader选举</h3><p>故障转移时，需要哨兵选出一个leader进行后续操作。</p>
+<p>流程为：每个主管下线的哨兵向其他哨兵发出设置他为Leader的命令，当票数达到设定值时，称为领导者。若有多个哨兵当选Leader，则等待一段时间再选举。<br><img src="/img/db/%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="6-分布式锁"><a href="#6-分布式锁" class="headerlink" title="6. 分布式锁"></a>6. 分布式锁</h1><p>当多客户端并发操作Redis，可能出现并发竞争，需要分布式锁帮助管理顺序。</p>
+<h2 id="6-1-实现"><a href="#6-1-实现" class="headerlink" title="6.1 实现"></a>6.1 实现</h2><ul>
+<li>用 setnx (set if not exists)争抢锁。key不存在就设为value，存在不做动作。</li>
+<li>抢到后，用 expire 给锁加一个过期时间防止锁忘记了释放。</li>
+<li>可以通过参数将setnx和expire合成一条指令。</li>
+</ul>
+<h2 id="6-2-举例"><a href="#6-2-举例" class="headerlink" title="6.2 举例"></a>6.2 举例</h2><ol>
+<li>每个系统通过 Zookeeper 获取分布式锁，确保同一时间，只能有一个系统实例在操作某个Key。</li>
+<li>写入/查询MySQL时必须保存一个时间戳，每次都要判断当前 Value 的时间戳是否比缓存里的 Value 的时间戳要新。如果是的话，那么可以写，否则，就不能用旧的数据覆盖新的数据。</li>
+</ol>
+<h1 id="7-缓存异常"><a href="#7-缓存异常" class="headerlink" title="7. 缓存异常"></a>7. 缓存异常</h1><h2 id="7-1-缓存雪崩"><a href="#7-1-缓存雪崩" class="headerlink" title="7.1 缓存雪崩"></a>7.1 缓存雪崩</h2><p>答：缓存雪崩是指缓存同一时间大面积失效，这时有一波请求访问数据库，导致数据库崩掉。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li>事前：保证redis服务器的高可用，发现宕机就立马补上，内部选择恰当的内存淘汰机制，设置随机的key失效时间(保证不会同时大面积失效)；</li>
+<li>事中：本地ehcache缓存 + 限流和降级处理，避免数据库崩溃；</li>
+<li>事后：redis持久化尽快恢复缓存数据。<br><img src="/img/db/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></li>
+</ul>
+<h2 id="7-2-缓存穿透"><a href="#7-2-缓存穿透" class="headerlink" title="7.2 缓存穿透"></a>7.2 缓存穿透</h2><p>答：故意请求不在缓存也不在数据库中的数据，导致大量请求直接打到数据库上，导致崩溃。</p>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li>参数校验：将不合法的参数请求直接抛异常。</li>
+<li>缓存无效key：若缓存和数据库都查不到数据，就写一个到redis中并设置过期时间。</li>
+<li><strong>布隆过滤器</strong>：把所有可能的请求值放在布隆过滤器中，用户请求时先判断是否存在，不存在直接返回错误信息。<br><img src="/img/db/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F+%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></li>
+</ul>
+<h2 id="7-3-缓存击穿"><a href="#7-3-缓存击穿" class="headerlink" title="7.3 缓存击穿"></a>7.3 缓存击穿</h2><p>答：缓存击穿是指缓存中没有但数据库中有的数据，同时大并发去数据库查询同一条数据，导致崩溃。比如缓存热点数据key失效后的处理。</p>
+<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li>设置热点数据永不过期</li>
+<li>对缓存查询加互斥锁。key不存在就加锁查DB写缓存，然后解锁；其他进程发现有锁就等待，等解锁后从缓存中拿数据。</li>
+</ul>
+<h2 id="7-4-缓存降级"><a href="#7-4-缓存降级" class="headerlink" title="7.4 缓存降级"></a>7.4 缓存降级</h2><p>答：缓存降级是指服务出现问题或非核心服务影响到核心流程的性能时，弃车保帅，保证核心服务可用，即使是有损服务。</p>
+<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li>必须对系统进行梳理排序，从而确定可以降级的模块。</li>
+<li>一般对不重要的缓存数据，可以直接返回默认值，而不去访问数据库。</li>
+</ul>
+<h2 id="7-5-双写一致性"><a href="#7-5-双写一致性" class="headerlink" title="7.5 双写一致性"></a>7.5 双写一致性</h2><p>答：高并发情况下很容易因为操作失败而导致数据不一致。</p>
+<h3 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li><p>强一致性：<strong>读写请求串行化</strong>，每次只能进行一个操作，保证数据库和缓存时刻相同。</p>
+</li>
+<li><p>最终一致性：数据库和缓存可以存在不一致的情况。</p>
+<ul>
+<li><strong>双删延迟</strong>：先删除缓存数据，再更新数据库数据，最后隔段时间再删除缓存。</li>
+<li>原理：如果数据库更新失败，那么数据库中是旧数据，缓存中是空的，数据不会不一致。因为读的时候没有缓存，所以去读了数据库中的旧数据，然后更新到缓存中。</li>
+</ul>
+</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/28/MySQL/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/27/Java%E9%9B%86%E5%90%88/">
+                        <span class="hidden-mobile">Java集合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Redis&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
