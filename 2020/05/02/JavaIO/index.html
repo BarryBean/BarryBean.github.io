@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="BarryBean">
   <meta name="keywords" content="">
-  <title>hexo搭建博客 - BarryBean&#39;s blog</title>
+  <title>JavaIO - BarryBean&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -141,8 +141,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-04-29 19:45">
-                    星期三, 四月 29日 2020, 7:45 晚上
+                  <time datetime="2020-05-02 23:24">
+                    星期六, 五月 2日 2020, 11:24 晚上
                   </time>
                 </div>
               
@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    415 字
+                    742 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    5
+                    8
                      分钟
                   </span>
                 
@@ -191,61 +191,51 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>本站使用 hexo 建站的实现步骤。</p>
-<p>视频教程可以参照 <a href="https://www.bilibili.com/video/BV1Yb411a7ty?from=search&seid=16077203723452169370" target="_blank" rel="noopener">CodeSheep</a>，感谢羊哥。</p>
-<a id="more"></a>
-
-<h1 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li>安装 Node.js。<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网下载</a></li>
-<li>安装 Git。<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网下载</a></li>
-<li>使用 npm 或者 cnpm，进行 hexo 的安装。<pre><code class="hljs shell">npm install -g hexo-cli</code></pre>
-npm太慢就用cnpm，设置为淘宝源。<pre><code class="hljs shell">npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install -g hexo-cli</code></pre>
-
-</li>
-</ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
-<li>初始化 hexo。</li>
-</ol>
-<p>先建立存放日后博客的文件夹，在文件夹路径下打开 bash 窗口，进行 hexo 安装。</p>
-<pre><code class="hljs shell">hexo init</code></pre>
-<ol start="2">
-<li>新建文章<pre><code class="hljs shell">// 在 source/_posts 目录下生成对应的 md 文件
-hexo new "文章名称"</code></pre></li>
-<li>清理缓存<pre><code class="hljs shell">hexo clean</code></pre></li>
-<li>生成静态文件<pre><code class="hljs shell">hexo g</code></pre></li>
-<li>启动博客<pre><code class="hljs shell">hexo s</code></pre>
-
-</li>
-</ol>
-<p>注：每次修改主题或修改文章，强力建议都要<code>hexo clean</code> 清理下，再进行生成和重新启动。</p>
-<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="github-io-白嫖"><a href="#github-io-白嫖" class="headerlink" title="github.io 白嫖"></a><code>github.io</code> 白嫖</h2><ol>
-<li>生成github.io仓库</li>
-</ol>
-<p>首先注册并登录 GitHub，创建新的 public 仓库，仓库名称一定要是：<br><code>YourGitHubName.github.io</code></p>
-<p>注：<strong>YourGitHubName是你的GitHub昵称，大小写敏感</strong>！部署好后，链接都是小写。</p>
-<ol start="2">
-<li><p>本地安装 Hexo 的 git 部署插件</p>
-<pre><code class="hljs yml"><span class="hljs-string">npm</span> <span class="hljs-string">install</span> <span class="hljs-string">--save</span> <span class="hljs-string">hexo-deployer-git</span></code></pre>
-</li>
-<li><p>本地修改 _config.yaml 文件</p>
-</li>
-</ol>
-<p>在 Hexo 目录下的 _config.yaml 文件中，对 #Deployment 做如下修改：</p>
-<pre><code class="hljs yml"><span class="hljs-comment"># Deployment</span>
-<span class="hljs-comment">## Docs: https://hexo.io/docs/deployment.html</span>
-<span class="hljs-attr">deploy:</span>
-  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span>
-  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/YourGitHubName/YourGitHubName.github.io</span>
-  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span></code></pre>
-<p>注：type、repo 和 branch 冒号后都有一个空格。</p>
-<ol start="4">
-<li>部署<pre><code class="hljs shell">hexo d</code></pre>
-部署成功后，浏览器输入 <code>YourGitHubName.github.io</code> 即可访问。</li>
-</ol>
-<h1 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h1><p>hexo 有很多主题能进行页面美化，常见的有 next、Yilia、Melody。</p>
-<p>我使用的是国人制作的 Fluid，功能多样，文档详实，还有微信群…</p>
-<p>Fluid 的 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener">GitHub</a> 和 <a href="https://hexo.fluid-dev.com/docs/guide/" target="_blank" rel="noopener">官方文档</a>。</p>
+              <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h1><p>BIO、NIO、AIO是Java对于IO的封装，和Socket的IO模型有些不同，两者可以对照看。</p>
+<h2 id="1-1-同步异步"><a href="#1-1-同步异步" class="headerlink" title="1.1 同步异步"></a>1.1 同步异步</h2><ul>
+<li>同步：发送请求后，被调用者没处理完之前，不返回；</li>
+<li>异步：发送请求后，被调用者发送收到回应，但不返回结果，调用者可以去处理其它请求，之后通过回调事件等机制通知调用者。</li>
+</ul>
+<h2 id="1-2-阻塞非阻塞"><a href="#1-2-阻塞非阻塞" class="headerlink" title="1.2 阻塞非阻塞"></a>1.2 阻塞非阻塞</h2><ul>
+<li>阻塞：发送请求后，调用者一直等待结果，无法处理其他事情；</li>
+<li>非阻塞：发送请求后，调用者不用等待结果，可以去处理其他事情。</li>
+</ul>
+<h1 id="2-BIO"><a href="#2-BIO" class="headerlink" title="2. BIO"></a>2. BIO</h1><p>同步阻塞 Blocking IO，数据的读取写入阻塞在一个线程完成。</p>
+<h2 id="2-1-传统BIO"><a href="#2-1-传统BIO" class="headerlink" title="2.1 传统BIO"></a>2.1 传统BIO</h2><p>一请求一应答，服务端为每一个客户端请求创建一个新的线程进行处理。<br><img src="/img/java/%E4%BC%A0%E7%BB%9FBIO.png" srcset="/img/loading.gif" alt="传统BIO"><br>由 Acceptor 线程负责监听客户端连接，不停调用 accept() 监听请求，接收到请求，就建立 socket 进行读写操作，直到这个客户端操作完成。 </p>
+<ul>
+<li>优点：简单。</li>
+<li>缺点：线程的创建、切换和销毁成本剧增。</li>
+</ul>
+<h2 id="2-2-伪异步IO"><a href="#2-2-伪异步IO" class="headerlink" title="2.2 伪异步IO"></a>2.2 伪异步IO</h2><p>后端通过线程池处理多个客户端请求，达到 M 个客户端 : N 个最大处理线程，其中 M &gt;&gt; N。</p>
+<p><img src="/img/java/%E4%BC%AA%E5%BC%82%E6%AD%A5IO.png" srcset="/img/loading.gif" alt="伪异步IO"><br>客户端请求时，服务端将 Socket 封装成 Task 放进线程池，线程池维护一个消息队列和 N 个活跃线程，对消息队列中的任务进行处理。</p>
+<ul>
+<li>优点：避免一请求一应答，线程池的资源占用可控，不会耗尽资源。</li>
+<li>缺点：底层依然是同步阻塞的BIO模型，因此无法从根本上解决问题。</li>
+</ul>
+<h1 id="3-NIO"><a href="#3-NIO" class="headerlink" title="3. NIO"></a>3. NIO</h1><p>同步非阻塞 New/Non-Blocking IO。</p>
+<h2 id="3-1-特点"><a href="#3-1-特点" class="headerlink" title="3.1 特点"></a>3.1 特点</h2><h3 id="3-1-1-非阻塞IO"><a href="#3-1-1-非阻塞IO" class="headerlink" title="3.1.1 非阻塞IO"></a>3.1.1 非阻塞IO</h3><p><strong>IO是阻塞的，NIO是非阻塞的。</strong></p>
+<ul>
+<li>IO 当调用write()或read()时，线程被阻塞，直到操作完成；</li>
+<li>NIO 当线程写入数据到通道，不用等待，可以去处理其他事情。</li>
+</ul>
+<h3 id="3-1-2-缓冲区-buffer"><a href="#3-1-2-缓冲区-buffer" class="headerlink" title="3.1.2 缓冲区 buffer"></a>3.1.2 缓冲区 buffer</h3><p><strong>IO面向流，NIO面向缓冲区。</strong></p>
+<ul>
+<li>NIO 所有的数据直接读写到缓冲区处理；</li>
+<li>IO 将数据读写到 Stream 对象中，但还是需要从流读到缓冲区。</li>
+</ul>
+<h3 id="3-1-3-通道-channel"><a href="#3-1-3-通道-channel" class="headerlink" title="3.1.3 通道 channel"></a>3.1.3 通道 channel</h3><p><strong>NIO 通过通道双向读写。</strong></p>
+<ul>
+<li>IO 流只能单向。</li>
+<li>NIO 的通道是双向，并且只和 buffer 交互。</li>
+</ul>
+<h3 id="3-1-4-选择器-selector"><a href="#3-1-4-选择器-selector" class="headerlink" title="3.1.4 选择器 selector"></a>3.1.4 选择器 selector</h3><p><strong>NIO 通过选择器使用一个线程能处理多个通道。</strong></p>
+<h2 id="3-2-读写方式"><a href="#3-2-读写方式" class="headerlink" title="3.2 读写方式"></a>3.2 读写方式</h2><ul>
+<li>读取：创建一个 buffer，请求通道读取数据；</li>
+<li>写入：创建一个 buffer，填充数据，要求通道写入数据。 </li>
+</ul>
+<h2 id="3-3-改进"><a href="#3-3-改进" class="headerlink" title="3.3 改进"></a>3.3 改进</h2><p>Netty，因为NIO 底层的 epoll 有空轮询bug，使 CPU 占用100%。</p>
+<h1 id="4-AIO"><a href="#4-AIO" class="headerlink" title="4. AIO"></a>4. AIO</h1><p>异步非阻塞 Asynchronous IO。</p>
+<p>客户端发送请求后，服务端立即返回，应用进程去做其他事情，当内核完成所有操作后，再通知应用进程IO已完成。</p>
 
             </article>
             <hr>
@@ -255,7 +245,7 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
                   </div>
                 
@@ -263,7 +253,7 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
                     
                   </div>
                 
@@ -276,9 +266,9 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/05/01/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80/">
+                      <a href="/2020/05/02/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">消息队列基础</span>
+                        <span class="hidden-mobile">操作系统基础</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -286,8 +276,8 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/04/29/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                        <span class="hidden-mobile">Java虚拟机</span>
+                      <a href="/2020/05/02/%E6%99%BA%E5%8A%9B%E9%A2%98/">
+                        <span class="hidden-mobile">智力题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -427,7 +417,7 @@ hexo new "文章名称"</code></pre></li>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "hexo搭建博客&nbsp;",
+        "JavaIO&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

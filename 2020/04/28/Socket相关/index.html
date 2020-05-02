@@ -191,7 +191,10 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="1-IO模型"><a href="#1-IO模型" class="headerlink" title="1. IO模型"></a>1. IO模型</h1><p>Socket的输入操作有两步。</p>
+              <p>Socket的五种IO模型，Linux的唤醒回调机制以及IO复用的select、poll、epoll。</p>
+<a id="more"></a>
+
+<h1 id="1-IO模型"><a href="#1-IO模型" class="headerlink" title="1. IO模型"></a>1. IO模型</h1><p>Socket的输入操作有两步。</p>
 <ol>
 <li>wait for data - 等待网络传输数据到达，到达后复制到内核缓冲区；</li>
 <li>copy data from kernel to user - 把数据从内核缓冲区复制到应用进程缓冲区。</li>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="BarryBean">
+  <meta name="keywords" content="">
+  <title>智力题 - BarryBean&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>BarryBean's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/sky.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-02 15:39">
+                    星期六, 五月 2日 2020, 3:39 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    3.8k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    42
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>本篇来自牛客的一个 <a href="https://www.nowcoder.com/discuss/414594?toCommentId=5976180" target="_blank" rel="noopener">帖子</a> 和 自己之前的总结，<strong>缝合</strong>而来。(您的好友缝合怪上线)</p>
+<a id="more"></a>
+
+<h1 id="1-扔鸡蛋"><a href="#1-扔鸡蛋" class="headerlink" title="1. 扔鸡蛋"></a>1. 扔鸡蛋</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>现在有两个一样的鸡蛋，坚硬程度未知，有一栋100层的大楼，鸡蛋从楼上扔下去可能坏也可能不坏，问：最少测试多少次能够找到鸡蛋不坏的最高楼层</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>二分折半。100层，直接取一半，从50层往下仍。<ul>
+<li>碎了，就从1-50，只剩一个鸡蛋，只能从1层轮询往上。</li>
+<li>没碎，就从50-100再折半。</li>
+</ul>
+</li>
+<li>分层。将100层分成10份，每份10层，从第10层扔下。<ul>
+<li>碎了，轮询1-10。</li>
+<li>没碎，从第20层扔。</li>
+<li>思路是用一个鸡蛋试探找到临界楼层的范围，再用另一个鸡蛋准确找到。最坏18次。</li>
+</ul>
+</li>
+<li>转化为 <strong>2个鸡蛋测试k次最多能测试多少层</strong>。假设第一次从m层扔下。<ul>
+<li>碎了，又变成轮询，最坏情况相当于做了 1+(m-1) 次测试，所以 m=k，即第一次应该从 k 层扔下。</li>
+<li>没碎，又面临相同选择，此时能扔 k-1 次。</li>
+<li>最终楼层总数 h = k+(k-1)+(k-2)+…+1，又因为 h &gt; 100，所以 k &gt; 13。</li>
+<li>最终答案是14次。</li>
+</ul>
+</li>
+</ol>
+<h1 id="2-二进制问题"><a href="#2-二进制问题" class="headerlink" title="2. 二进制问题"></a>2. 二进制问题</h1><p>二进制应用，万变不离其宗，把数目转成二进制就行。</p>
+<h2 id="金条问题"><a href="#金条问题" class="headerlink" title="金条问题"></a>金条问题</h2><p>有个商人雇用了一位手艺高超的工匠了为他做一个精致产品，工作一星期七天的代价是一条金条。商人手头上有一条金条，刚好有可以付工匠一星期的工钱。但工匠要求工钱要按每天来付。虽然他并不急着用钱，每天有钱进账，老人心里总是踏实一些。但商人家中有个规矩，金条每星期只能切二刀。后来商人想出以了个切割金条的办法，满足了工匠的要求。你知道商人是怎么切割金条才能满足工匠的吗？</p>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><p>切成 1，2，4。这三个数能组成表示 1-7 中的任意一个。</p>
+<h2 id="老鼠试毒药"><a href="#老鼠试毒药" class="headerlink" title="老鼠试毒药"></a>老鼠试毒药</h2><p>有 n 桶牛奶，其中有 1 桶有问题，老鼠喝了后第二天会死掉。如何在最短时间内用最少的老鼠测出有问题的那瓶牛奶？</p>
+<h3 id="答案-1"><a href="#答案-1" class="headerlink" title="答案"></a>答案</h3><p>如果 n 是 2 的整数次幂，就是 n 转换为二进制后的位数减一。如果 n 不是 2 的整数次幂，就是 n 转换为二进制后的位数。</p>
+<p>即算log2(n)，如果是整数，那这个整数就是最少的老鼠。如果有小数，整取后并加1后的值为最少的老鼠数</p>
+<h3 id="操作方案"><a href="#操作方案" class="headerlink" title="操作方案"></a>操作方案</h3><p>假设 n = 8，转换成二进制位 1000，可知需要最少的老鼠是 4 只，但因为 8 是 2 的整数次幂，其实最后只需要 3 只老鼠，先以 4 只老鼠为例。</p>
+<ol>
+<li>第一步</li>
+</ol>
+<p>给 8 桶牛奶用二进制编号</p>
+<ul>
+<li>第 1 桶牛奶 0001</li>
+<li>第 2 桶牛奶 0010</li>
+<li>第 3 桶牛奶 0011</li>
+<li>第 4 桶牛奶 0100</li>
+<li>第 5 桶牛奶 0101</li>
+<li>第 6 桶牛奶 0110</li>
+<li>第 7 桶牛奶 0111</li>
+<li>第 8 桶牛奶 1000</li>
+</ul>
+<ol start="2">
+<li>第二步</li>
+</ol>
+<p>4 只老鼠按顺序排好，面对着牛奶对应的二进制编号，每桶二进制编号为 1 对应的老鼠喝牛奶</p>
+<ul>
+<li>老鼠 1 喝第 8 桶的牛奶</li>
+<li>老鼠 2 喝第 4、5、6、7 桶的牛奶</li>
+<li>老鼠 3 喝第 2、3、6、7 桶的牛奶</li>
+<li>老鼠 4 喝第 1、3、5、7 桶的牛奶</li>
+</ul>
+<ol start="3">
+<li>第三步</li>
+</ol>
+<p>第二天后把这 4 只老鼠还按昨天的顺序排好，死了的老鼠标记为 1，没有死的老鼠标记为 0，这这样 4 只老鼠就组成了一个二进制的数，与之对应的牛奶编号就是有毒的那桶。比如老鼠 2 和老鼠 3 死了，对应的二进制编号为 0110，那就说明第 6 桶牛奶有毒</p>
+<p>我们知道 n 为 2 的整数次幂的话，对应的二进制只有在最高位为1，也就是对应的第 n 桶牛奶只有一只老鼠喝，我们可以把这个老鼠省下来，用剩下的老鼠喝其余桶中的牛奶。如果这些老鼠都没死，那就说明是第 n 桶牛奶有毒了。</p>
+<h1 id="3-倒水问题"><a href="#3-倒水问题" class="headerlink" title="3. 倒水问题"></a>3. 倒水问题</h1><p>两个或多个桶中的水来回倒，得到目标升数的水。</p>
+<h2 id="通用套路"><a href="#通用套路" class="headerlink" title="通用套路"></a>通用套路</h2><p>我们每次操作只会使桶里水的总量+x，+y，-x，-y，所以就是找整数a，b使得 <strong>ax+by=z</strong> 成立。</p>
+<p>根据贝祖定律，等式成立的条件是 <strong>z为x，y的最大公约数的倍数</strong>，所以将题目转化为<strong>求x,y的最大公约数，判断是否为z的倍数</strong>。</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> b == <span class="hljs-number">0</span> ? a : gcd(b, a % b);
+&#125;</code></pre>
+
+
+<h2 id="无穷多的水"><a href="#无穷多的水" class="headerlink" title="无穷多的水"></a>无穷多的水</h2><h3 id="3和5得4"><a href="#3和5得4" class="headerlink" title="3和5得4"></a>3和5得4</h3><p>如果你有无穷多的水，一个3夸脱的和一个5夸脱的提桶，你如何准确称出 4夸脱的水？</p>
+<p>(0，5) -&gt; (3，2) -&gt; (0，2) -&gt; (2，0) -&gt; (2，5) -&gt; (1，4)</p>
+<h3 id="7和11得2"><a href="#7和11得2" class="headerlink" title="7和11得2"></a>7和11得2</h3><p>(0，11) -&gt; (7，4) -&gt; (0，4) -&gt; (4，0) -&gt; (4，11) -&gt; (7，8) -&gt; (0，8) -&gt; (7，1) -&gt; (0，1)</p>
+<p>-&gt; (1，11) -&gt; (7，5) -&gt; (0，5) -&gt; (5，0) -&gt; (5，11) -&gt; (7，9) -&gt; (0，9) -&gt; (7，2)</p>
+<h2 id="有限水且三个桶"><a href="#有限水且三个桶" class="headerlink" title="有限水且三个桶"></a>有限水且三个桶</h2><p>一个装了10L水的桶，一个7L的空桶，一个3L的空桶，怎样变成2个5L？</p>
+<p>(10，0，0) -&gt; (7，0，3) -&gt; (7，3，0) -&gt; (4，3，3) -&gt; (4，6，0) -&gt; (1，6，3) -&gt; (1，7，2) -&gt; (8，0，2) -&gt; (8，2，0) -&gt; (5，2，3) -&gt; (5，5，0)</p>
+<h1 id="4-蓝眼睛问题"><a href="#4-蓝眼睛问题" class="headerlink" title="4. 蓝眼睛问题"></a>4. 蓝眼睛问题</h1><p>这类问题基本上都是<strong>如果有c人是蓝眼睛的，则所有蓝眼睛的人要用c晚才能离岛，且都在同一晚离开</strong>。</p>
+<h2 id="蓝眼睛问题"><a href="#蓝眼睛问题" class="headerlink" title="蓝眼睛问题"></a>蓝眼睛问题</h2><p>有个岛上住着一群人，有一天来了个游客，定了一条奇怪的规矩：所有蓝眼睛的人都必须尽快离开这个岛。每晚8点会有一个航班离岛。每个人都看得见别人眼睛的颜色，但不知道自己的（别人也不可以告知）。此外，他们不知道岛上到底有多少人是蓝眼睛的，只知道至少有一个人的眼睛是蓝色的。所有蓝眼睛的人要花几天才能离开这个岛？</p>
+<h3 id="答案-2"><a href="#答案-2" class="headerlink" title="答案"></a>答案</h3><p><strong>有多少个蓝眼睛的人就会花多少天。</strong> 前提是所有人都是聪明的。</p>
+<ol>
+<li>c=1</li>
+</ol>
+<p>蓝眼睛的人四处观察之后，发现没有人是蓝眼睛的。但他知道至少有一人是蓝眼睛的，于是就能推导出自己一定是蓝眼睛的。因此，他会搭乘当晚的飞机离开。</p>
+<ol start="2">
+<li>c=2</li>
+</ol>
+<p>两个蓝眼睛的人看到对方，并不确定c是1还是2，但是由上一种情况，他们知道，如果c = 1，那个蓝眼睛的人第一晚就会离岛。因此，发现另一个蓝眼睛的人仍在岛上，他一定能推断出c = 2，也就意味着他自己也是蓝眼睛的。于是，两个蓝眼睛的人都会在第二晚离岛。</p>
+<ol start="3">
+<li>c&gt;2</li>
+</ol>
+<p>如果c = 3，那么，这三个人会立即意识到有2到3人是蓝眼睛的。如果有两人是蓝眼睛的，那么这两人会在第二晚离岛。因此，如果过了第二晚另外两人还在岛上，每个蓝眼睛的人都能推断出c = 3，因此这三人都有蓝眼睛。他们会在第三晚离岛。</p>
+<h2 id="类似问题"><a href="#类似问题" class="headerlink" title="类似问题"></a>类似问题</h2><h3 id="疯狗问题"><a href="#疯狗问题" class="headerlink" title="疯狗问题"></a>疯狗问题</h3><p>有50家人家，每家一条狗。有一天警察通知，50条狗当中有病狗，行为和正常狗不一样。每人只能通过观察别人家的狗来判断自己家的狗是否生病，而不能看自己家的狗，如果判断出自己家的狗病了，就必须当天一枪打死自己家的狗。结果，第一天没有，第二天没有，第三天开始一阵枪响，问：一共死了几条狗？</p>
+<h3 id="耳光问题"><a href="#耳光问题" class="headerlink" title="耳光问题"></a>耳光问题</h3><p>一群人开舞会，每人头上都戴着一顶帽子。帽子只有黑白两种，黑的至少有一顶。每个人都能看到其他人帽子的颜色，却看不到自己的。主持人先让大家看看别人头上戴的是什么帽子，然后关灯，如果有人认为自己戴的是黑帽子，就打自己一个耳光。第一次关灯，没有声音。于是再开灯，大家再看一遍，关灯时仍然鸦雀无声。一直到第三次关灯，才有劈劈啪啪打耳光的声音响起。问有多少人戴着黑帽子？</p>
+<h1 id="5-重量问题"><a href="#5-重量问题" class="headerlink" title="5. 重量问题"></a>5. 重量问题</h1><h2 id="乒乓球重量"><a href="#乒乓球重量" class="headerlink" title="乒乓球重量"></a>乒乓球重量</h2><p>8个乒乓球，其中一个重，有一个秤，问至少几次能够找出重的那个乒乓球</p>
+<h3 id="答案-3"><a href="#答案-3" class="headerlink" title="答案"></a>答案</h3><p>2次，分成3堆，3，3，2。</p>
+<ol>
+<li>第一种情况<ul>
+<li>称3和3，如果一样重，代表重的在2。</li>
+<li>称2个那一堆的。</li>
+</ul>
+</li>
+<li>第二种情况<ul>
+<li>称3和3，不一样重，重的在3里面重的那堆。</li>
+<li>3个里面随便取2个，一样重，第三个重。不一样重，重的那个就是。</li>
+</ul>
+</li>
+</ol>
+<h2 id="盐重量问题"><a href="#盐重量问题" class="headerlink" title="盐重量问题"></a>盐重量问题</h2><p>有7克、2克砝码各一个，天平一只，如何只用这些物品五次内将140克的盐分成50、90克各一份？</p>
+<h3 id="答案-4"><a href="#答案-4" class="headerlink" title="答案"></a>答案</h3><ol>
+<li>先分成70和70</li>
+<li>通过7和2砝码将70分成9和61</li>
+<li>通过9克盐和2砝码将61分成50和11</li>
+</ol>
+<h2 id="药丸问题"><a href="#药丸问题" class="headerlink" title="药丸问题"></a>药丸问题</h2><p>有20瓶药丸，其中19瓶装有1克/粒的药丸，余下一瓶装有1.1克/粒的药丸。给你一台称重精准的天平，怎么找出比较重的那瓶药丸？天平只能用一次。</p>
+<h3 id="答案-5"><a href="#答案-5" class="headerlink" title="答案"></a>答案</h3><ol>
+<li>从药瓶#1取出一粒药丸，从药瓶#2取出两粒，从药瓶#3取出三粒，依此类推。</li>
+<li>如果每粒药丸均重1克，则称得总重量为210克，<code>多出来的重量</code>必定来自每粒多0.1克的药丸。药瓶的编号可由算式(weight - 210) / 0.1 得出。</li>
+</ol>
+<p>比如，若这堆药丸称得重量为211.3克，则药瓶#13装有较重的药丸。</p>
+<h1 id="6-概率问题"><a href="#6-概率问题" class="headerlink" title="6. 概率问题"></a>6. 概率问题</h1><h2 id="男孩女孩"><a href="#男孩女孩" class="headerlink" title="男孩女孩"></a>男孩女孩</h2><p>一个家庭有两个小孩，其中有一个是女孩，问另一个也是女孩的概率（假定生男生女的概率一样）</p>
+<h3 id="答案-6"><a href="#答案-6" class="headerlink" title="答案"></a>答案</h3><ul>
+<li>贝叶斯学派，已知先验概率是一家男女四种组合是各 1/4，有女概率是 3/4，两女概率是 1/4，所以结果是条件概率 1/3。</li>
+<li>频率学派，认为一个孩子是男是女的概率都是 1/2，因为生男生女概率一样且事件互斥，根据最大似然估计就应该是 1/2。</li>
+</ul>
+<h2 id="红球概率"><a href="#红球概率" class="headerlink" title="红球概率"></a>红球概率</h2><p>你有两个罐子，每个罐子各有若干红色弹球和蓝色弹球，两个罐子共有50个红色弹球，50个蓝色弹球，随机选出一个罐子，随机从中选取出一个弹球，要使取出的是红球的概率最大，一开始两个罐子应放几个红球，几个蓝球？在你的计划中，得到红球的准确几率是多少？</p>
+<h3 id="答案-7"><a href="#答案-7" class="headerlink" title="答案"></a>答案</h3><p>A罐子里放1个红球，B罐子里放49个红球和蓝球。</p>
+<p>红球概率 =&gt; 50%+50%*49/99 = 99/198 + 49/198 = 74/99。</p>
+<h1 id="7-其他问题"><a href="#7-其他问题" class="headerlink" title="7. 其他问题"></a>7. 其他问题</h1><h2 id="扑克牌"><a href="#扑克牌" class="headerlink" title="扑克牌"></a>扑克牌</h2><p>54张扑克牌，其中有十张是翻过来的。现在把你的眼睛蒙上，让你把扑克牌分成两叠（两叠的多少可以不一样）。要求在两叠中翻过来的扑克牌是相等的。请问该怎么做？</p>
+<h3 id="答案-8"><a href="#答案-8" class="headerlink" title="答案"></a>答案</h3><ol>
+<li>从54张牌中随意抽出10张；</li>
+<li>将10张牌每张都翻过，就是所要求的。</li>
+</ol>
+<p>设44张牌中x张为翻过来的，10张中则有10-x张，第二步后，10张则有10-x张正面，x张翻过来的。</p>
+<h2 id="猜数字"><a href="#猜数字" class="headerlink" title="猜数字"></a>猜数字</h2><p>教授选出两个从2到9的数，把它们的和告诉学生甲，把它们的积告诉学生乙，让他们轮流猜这两个数， 甲说：“我猜不出”， 乙说：“我猜不出”， 甲说：“我猜到了”， 乙说：“我也猜到了”， 问这两个数是多少？</p>
+<h3 id="答案-9"><a href="#答案-9" class="headerlink" title="答案"></a>答案</h3><p>3和4。</p>
+<p>设两个数为n1，n2，甲的数为 n=n1+n2，乙的数为 m=n1*n2，证明n1=3，n2=4是唯一解。</p>
+<p>证明：先证n=7。</p>
+<ol>
+<li>必要性<ul>
+<li>n &gt; 5 是显然的，因为甲回答不知道，2 3 4 5都能直接知道；</li>
+<li>n = 6，甲虽然不知道，但乙必然知道，8或9直接得出；</li>
+<li>n &lt; 8，若 n &gt;= 8，n至少可以分解成两种不同的合数之和，甲在第二次回答时不可能立马知道。</li>
+</ul>
+</li>
+<li>充分性<ul>
+<li>n = 7时，分解成2 5或3 4，显然2 5不合题意，舍去，3 4符合题意，m=12，证毕。</li>
+</ul>
+</li>
+</ol>
+<p>于是得到n=7，m=12， n1=3， n2=4是唯一解。</p>
+<h2 id="标签问题"><a href="#标签问题" class="headerlink" title="标签问题"></a>标签问题</h2><p>3个箱子里面放了 苹果，梨子，苹果加梨子，标签全错误，只能选择查看一箱的水果来改正所有标签。</p>
+<h3 id="答案-10"><a href="#答案-10" class="headerlink" title="答案"></a>答案</h3><p>查看苹果加梨子那箱。</p>
+<ul>
+<li>若有苹果和梨子，说明此标签对，另两个错误，需要互换；</li>
+<li>若只有梨子，说明这箱标签应为梨子，剩下的是苹果，苹果+梨子，剩下的标签是苹果和梨子。因为标签全错，所以贴着苹果的是两者混合，贴着梨子的是苹果。</li>
+<li>若只有苹果，情况和上一种类似。</li>
+</ul>
+<h2 id="吃药问题"><a href="#吃药问题" class="headerlink" title="吃药问题"></a>吃药问题</h2><p>某种药方要求非常严格，你每天需要同时服用A、B两种药片各一颗，不能多也不能少。这种药非常贵，你不希望有任何一点的浪费。一天，你打开装药片A的药瓶，倒出一粒药片放在手心；然后打开另一个药瓶，但不小心倒出了两粒药片。现在，你手心上有一颗药片A，两颗药片B，并且你无法区别哪个是A，哪个是B。你如何才能严格遵循药方服用药片，并且不能有任何的浪费？</p>
+<h3 id="答案-11"><a href="#答案-11" class="headerlink" title="答案"></a>答案</h3><ol>
+<li>把手上的三片药各自切成两半，分成两堆摆放。</li>
+<li>再取出一粒药片A，也把它切成两半，然后在每一堆里加上半片的A。</li>
+<li>现在，每一堆药片恰好包含两个半片的A和两个半片的B。一天服用其中一堆即可。</li>
+</ol>
+<h2 id="硬币问题"><a href="#硬币问题" class="headerlink" title="硬币问题"></a>硬币问题</h2><p>如何用一枚硬币等概率地产生一个1到3之间的随机整数？如果这枚硬币是不公正的呢？</p>
+<h3 id="答案-12"><a href="#答案-12" class="headerlink" title="答案"></a>答案</h3><ol>
+<li>公正硬币，投掷两次，”正反”为1，”反正”为2，”正正”为3，”反反”重来。</li>
+<li>不公正硬币，其<code>正反</code>和<code>反正</code>的概率还是一样，因此令”正反反正”、”反正正反”、”正反正反”分别为1、2、3，其余情况重来。</li>
+<li>若能投掷三次，则”正反反”为1，”反正反”为2，”反反正”为3，其余情况重来。</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%99%BA%E5%8A%9B%E9%A2%98/">智力题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%99%BA%E5%8A%9B%E9%A2%98/">智力题</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/02/JavaIO/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaIO</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/02/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9C%BA%E6%99%AF%E9%A2%98/">
+                        <span class="hidden-mobile">大数据场景题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "智力题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

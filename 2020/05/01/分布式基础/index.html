@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="BarryBean">
   <meta name="keywords" content="">
-  <title>hexo搭建博客 - BarryBean&#39;s blog</title>
+  <title>分布式基础 - BarryBean&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -141,8 +141,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-04-29 19:45">
-                    星期三, 四月 29日 2020, 7:45 晚上
+                  <time datetime="2020-05-01 14:23">
+                    星期五, 五月 1日 2020, 2:23 下午
                   </time>
                 </div>
               
@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    415 字
+                    2k 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    5
+                    21
                      分钟
                   </span>
                 
@@ -191,61 +191,117 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>本站使用 hexo 建站的实现步骤。</p>
-<p>视频教程可以参照 <a href="https://www.bilibili.com/video/BV1Yb411a7ty?from=search&seid=16077203723452169370" target="_blank" rel="noopener">CodeSheep</a>，感谢羊哥。</p>
+              <p>分布式系统的基础理论如CAP和BASE，分布式事务，一致性算法Paxos和Raft。</p>
 <a id="more"></a>
 
-<h1 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li>安装 Node.js。<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网下载</a></li>
-<li>安装 Git。<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网下载</a></li>
-<li>使用 npm 或者 cnpm，进行 hexo 的安装。<pre><code class="hljs shell">npm install -g hexo-cli</code></pre>
-npm太慢就用cnpm，设置为淘宝源。<pre><code class="hljs shell">npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install -g hexo-cli</code></pre>
-
+<h1 id="1-基础"><a href="#1-基础" class="headerlink" title="1. 基础"></a>1. 基础</h1><p>分布式系统的目的是提升系统的整体性能和吞吐量，并尽量保证容错性。</p>
+<h2 id="1-1-设计思路"><a href="#1-1-设计思路" class="headerlink" title="1.1 设计思路"></a>1.1 设计思路</h2><h3 id="1-1-1-中心化"><a href="#1-1-1-中心化" class="headerlink" title="1.1.1 中心化"></a>1.1.1 中心化</h3><ul>
+<li>两个角色。将集群的节点分为<strong>领导者</strong>和<strong>工作者</strong>。</li>
+<li>角色职责。领导者负责分发任务，监督工作者，工作者宕机后将任务重新分配。工作者就是干活的。</li>
+<li>出现问题。领导者GG了，整个集群都GG。领导者能力不够，集群性能就低。</li>
+<li>解决方案。多个领导者备份。选举机制。</li>
+</ul>
+<h3 id="1-1-2-去中心化"><a href="#1-1-2-去中心化" class="headerlink" title="1.1.2 去中心化"></a>1.1.2 去中心化</h3><ul>
+<li><strong>众生平等</strong>。没有角色分别。</li>
+<li>自由选择中心。集群成员自发选举领导者。</li>
+<li>出现问题。脑裂，一个集群因为网络故障，被分成多个彼此无法通信的单独集群，各自为战。</li>
+<li>解决方案。较小的集群自杀或拒绝服务。</li>
+</ul>
+<h3 id="1-1-3-集群和分布式"><a href="#1-1-3-集群和分布式" class="headerlink" title="1.1.3 集群和分布式"></a>1.1.3 集群和分布式</h3><p>集群偏向物理状态，让多个服务器跑同一个服务。</p>
+<p>分布式偏向逻辑状态，把一个服务拆分多个子服务，并部署在不同的服务器上。</p>
+<p>粗暴理解：单机-&gt;一个全栈；集群-&gt;多个全栈；分布式-&gt;前后端分离。</p>
+<h2 id="1-2-CAP定理"><a href="#1-2-CAP定理" class="headerlink" title="1.2 CAP定理"></a>1.2 CAP定理</h2><p>对于一个分布式计算系统来说，不能同时满足以下三点。</p>
+<ul>
+<li><strong>一致性Consistence</strong>。系统在操作数据后能从一个一致性状态转移到另一个一致性状态。</li>
+<li><strong>可用性Availability</strong>。系统提供的服务一直处于可用状态，对用户的请求都能在有限时间返回。</li>
+<li><strong>分区容忍性Partition tolerance</strong>。系统在遇到网络分区故障时，仍能对外提供一致性和可用性服务。</li>
+</ul>
+<p>所以分区容忍性必不可少，CAP实际上是在一致性和可用性间权衡。</p>
+<ul>
+<li>一致性 + 分区容忍性。不能访问未同步完成的节点，失去部分可用性。</li>
+<li>可用性 + 分区容忍性。允许访问全部节点，但数据可能不一致。</li>
+</ul>
+<h2 id="1-3-BASE理论"><a href="#1-3-BASE理论" class="headerlink" title="1.3 BASE理论"></a>1.3 BASE理论</h2><p>BASE是对CAP中一致性和可用性权衡的结果，用来保证 <code>即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当方式使系统达到最终一致性。</code></p>
+<ul>
+<li><strong>基本可用Basically Available</strong>。系统出现故障时，保证核心可用，允许损失部分可用性。</li>
+<li><strong>软状态Soft State</strong>。允许系统数据存在中间状态，即允许系统各个节点间的数据同步存在时延。</li>
+<li><strong>最终一致性Eventually Consistent</strong>。系统所有的数据副本，在一段时间的同步后，最终能达到一致的状态。</li>
+</ul>
+<h1 id="2-事务"><a href="#2-事务" class="headerlink" title="2. 事务"></a>2. 事务</h1><p>事务要满足ACID的特性，分布式事务指事务的操作在不同的节点上。</p>
+<h2 id="2-1-2PC"><a href="#2-1-2PC" class="headerlink" title="2.1 2PC"></a>2.1 2PC</h2><p>两阶段提交。引入协调者来协调参与者的行为，并决定参与者执行的事务。</p>
+<h3 id="2-1-1-过程"><a href="#2-1-1-过程" class="headerlink" title="2.1.1 过程"></a>2.1.1 过程</h3><ul>
+<li>准备阶段。协调者询问参与者事务是否执行成功，参与者返回执行结果。</li>
+<li>提交阶段。若都成功，协调者通知参与者提交事务，否则协调者通知回滚。</li>
+</ul>
+<p>理解为 中央集权。</p>
+<h3 id="2-1-2-问题"><a href="#2-1-2-问题" class="headerlink" title="2.1.2 问题"></a>2.1.2 问题</h3><ol>
+<li><strong>同步阻塞</strong>。事务参与者在等待其他事务参与者响应时处于同步阻塞状态，无法做其他事。</li>
+<li><strong>单点故障</strong>。协调者GG，特别是提交阶段GG，所有参与者都一直阻塞。</li>
+<li><strong>数据不一致</strong>。提交阶段产生网络波动，部分参与者没有收到消息，导致只有部分提交，数据不一致。</li>
+<li><strong>保守</strong>。一个节点失败，整个流程回滚。不适用高并发场景。 </li>
+</ol>
+<h2 id="2-2-3PC"><a href="#2-2-3PC" class="headerlink" title="2.2 3PC"></a>2.2 3PC</h2><p>三阶段提交。通过<strong>超时机制解决阻塞问题，增加询问阶段</strong>。</p>
+<h3 id="2-2-1-过程"><a href="#2-2-1-过程" class="headerlink" title="2.2.1 过程"></a>2.2.1 过程</h3><ul>
+<li>询问阶段。协调者询问参与者是否能完成事务，只用回答是或不是。</li>
+<li>准备阶段。和2pc类似。区别是若有参与者回答 no 或 超时，中断事务。</li>
+<li>提交阶段。和2pc类似。若参与者等待超时，则默认成功，继续事务提交。</li>
+</ul>
+<h3 id="2-2-2-问题"><a href="#2-2-2-问题" class="headerlink" title="2.2.2 问题"></a>2.2.2 问题</h3><p>一旦超时，系统就可能发生<strong>数据不一致</strong>的情况。</p>
+<p>比如协调者发送的中止命令没有及时被接收，参与者在等待超时后执行了提交事务，导致和回滚事务的参与者间存在数据不一致。</p>
+<h2 id="2-3-本地消息表"><a href="#2-3-本地消息表" class="headerlink" title="2.3 本地消息表"></a>2.3 本地消息表</h2><p>本地消息表和业务数据表放在同一数据库，保证本地事务，用MQ保证最终一致性。</p>
+<h3 id="2-3-1-过程"><a href="#2-3-1-过程" class="headerlink" title="2.3.1 过程"></a>2.3.1 过程</h3><ul>
+<li>消息生成方完成写数据操作后向本地消息表发送一个消息，本地事务保证这个消息一定会被写入本地消息表中。</li>
+<li>将本地消息表中的消息转发到消息队列中，如果转发成功则将消息从本地消息表中删除，否则继续重新转发。</li>
+<li>消息消费方从消息队列中读取一个消息，并执行消息中的操作。</li>
+</ul>
+<h3 id="2-3-2-问题"><a href="#2-3-2-问题" class="headerlink" title="2.3.2 问题"></a>2.3.2 问题</h3><p>消息表耦合到业务系统中，复杂性增加。</p>
+<h1 id="3-一致性算法"><a href="#3-一致性算法" class="headerlink" title="3. 一致性算法"></a>3. 一致性算法</h1><h2 id="3-1-Paxos"><a href="#3-1-Paxos" class="headerlink" title="3.1 Paxos"></a>3.1 Paxos</h2><p>对于多个节点产生的值，能<strong>保证选出唯一值</strong>。</p>
+<h3 id="3-1-1-组成"><a href="#3-1-1-组成" class="headerlink" title="3.1.1 组成"></a>3.1.1 组成</h3><ul>
+<li>提议者Proposer：提议一个值；</li>
+<li>接受者Acceptor：对每个提议进行投票；</li>
+<li>告知者Learner：被告知投票的结果，不进行投票。</li>
+</ul>
+<h3 id="3-1-2-过程"><a href="#3-1-2-过程" class="headerlink" title="3.1.2 过程"></a>3.1.2 过程</h3><p>提议格式为 [n,v]，n为唯一序号，v为提议值。</p>
+<ol>
+<li>Prepare阶段。<ul>
+<li>Proposer向所有Acceptor发送Prepare请求；</li>
+<li>Acceptor第一次收到请求，则发送Prepare响应，设置当前接受的提议为 [n1,v1]，并保证之后不会接受序号小于 n1 的提议。</li>
+<li>后续收到 [n2,v2]，若 n2&lt;n1，直接丢弃；否则，发送Prepare响应，设置当前接受提议为 [n2,v2]，并保证之后不会接受序号小于 n2 的提议。</li>
+</ul>
+</li>
+<li>Accept阶段。<ul>
+<li>一个Proposer接收到超过一半的Acceptor的响应时，发送Accept请求。</li>
+</ul>
+</li>
+<li>Learn阶段。<ul>
+<li>Acceptor收到Accept请求时，若序号 &gt; 承诺的最小序号，就发送Learn提议给所有的Learner。</li>
+<li>Learner发现大多数的Acceptor接受了某个提议，则该提议值就是选出的唯一值。</li>
+</ul>
 </li>
 </ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
-<li>初始化 hexo。</li>
-</ol>
-<p>先建立存放日后博客的文件夹，在文件夹路径下打开 bash 窗口，进行 hexo 安装。</p>
-<pre><code class="hljs shell">hexo init</code></pre>
-<ol start="2">
-<li>新建文章<pre><code class="hljs shell">// 在 source/_posts 目录下生成对应的 md 文件
-hexo new "文章名称"</code></pre></li>
-<li>清理缓存<pre><code class="hljs shell">hexo clean</code></pre></li>
-<li>生成静态文件<pre><code class="hljs shell">hexo g</code></pre></li>
-<li>启动博客<pre><code class="hljs shell">hexo s</code></pre>
-
-</li>
-</ol>
-<p>注：每次修改主题或修改文章，强力建议都要<code>hexo clean</code> 清理下，再进行生成和重新启动。</p>
-<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="github-io-白嫖"><a href="#github-io-白嫖" class="headerlink" title="github.io 白嫖"></a><code>github.io</code> 白嫖</h2><ol>
-<li>生成github.io仓库</li>
-</ol>
-<p>首先注册并登录 GitHub，创建新的 public 仓库，仓库名称一定要是：<br><code>YourGitHubName.github.io</code></p>
-<p>注：<strong>YourGitHubName是你的GitHub昵称，大小写敏感</strong>！部署好后，链接都是小写。</p>
-<ol start="2">
-<li><p>本地安装 Hexo 的 git 部署插件</p>
-<pre><code class="hljs yml"><span class="hljs-string">npm</span> <span class="hljs-string">install</span> <span class="hljs-string">--save</span> <span class="hljs-string">hexo-deployer-git</span></code></pre>
-</li>
-<li><p>本地修改 _config.yaml 文件</p>
-</li>
-</ol>
-<p>在 Hexo 目录下的 _config.yaml 文件中，对 #Deployment 做如下修改：</p>
-<pre><code class="hljs yml"><span class="hljs-comment"># Deployment</span>
-<span class="hljs-comment">## Docs: https://hexo.io/docs/deployment.html</span>
-<span class="hljs-attr">deploy:</span>
-  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span>
-  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/YourGitHubName/YourGitHubName.github.io</span>
-  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span></code></pre>
-<p>注：type、repo 和 branch 冒号后都有一个空格。</p>
-<ol start="4">
-<li>部署<pre><code class="hljs shell">hexo d</code></pre>
-部署成功后，浏览器输入 <code>YourGitHubName.github.io</code> 即可访问。</li>
-</ol>
-<h1 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h1><p>hexo 有很多主题能进行页面美化，常见的有 next、Yilia、Melody。</p>
-<p>我使用的是国人制作的 Fluid，功能多样，文档详实，还有微信群…</p>
-<p>Fluid 的 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="noopener">GitHub</a> 和 <a href="https://hexo.fluid-dev.com/docs/guide/" target="_blank" rel="noopener">官方文档</a>。</p>
+<h3 id="3-1-3-特点"><a href="#3-1-3-特点" class="headerlink" title="3.1.3 特点"></a>3.1.3 特点</h3><ul>
+<li>正确性。最后只有一个提议值生效。因为接受者只能接受一个提议，且每个提议需要大多数接受者接受。</li>
+<li>可终止性。最后总有一个提议生效。</li>
+</ul>
+<h2 id="3-2-Raft"><a href="#3-2-Raft" class="headerlink" title="3.2 Raft"></a>3.2 Raft</h2><p>用来<strong>竞选主节点</strong>。</p>
+<p>有三种节点：Follower，Candidate和Leader。</p>
+<h3 id="3-2-1-单个候选者"><a href="#3-2-1-单个候选者" class="headerlink" title="3.2.1 单个候选者"></a>3.2.1 单个候选者</h3><ul>
+<li>Leader周期性发送心跳包给所有Follower；</li>
+<li>每个Follower设置随机的超时时间，超过这个时间没有收到心跳包，则变成Candidate，进入竞选。</li>
+<li>Candidate发送投票请求给其它所有节点。</li>
+<li>其它节点对请求进行回复，如果超过一半的节点回复了，那么该 Candidate 就会变成 Leader。</li>
+<li>Leader 周期性地发送心跳包给 Follower，Follower 接收到心跳包，重新开始计时。</li>
+</ul>
+<h3 id="3-2-2-多个候选者"><a href="#3-2-2-多个候选者" class="headerlink" title="3.2.2 多个候选者"></a>3.2.2 多个候选者</h3><ul>
+<li>如果有多个 Follower 成为 Candidate，并获得票数相同，就重新投票。</li>
+<li>因为每个节点的竞选超时时间随机，所以下一次再次出现多个 Candidate 并获得同样票数的概率很低。</li>
+</ul>
+<h3 id="3-2-3-数据同步"><a href="#3-2-3-数据同步" class="headerlink" title="3.2.3 数据同步"></a>3.2.3 数据同步</h3><ul>
+<li>客户端的修改被传入 Leader，并写入修改日志。</li>
+<li>Leader 把修改复制给所有 Follower。</li>
+<li>Leader 等待大多数的 Follower 也进行了修改，然后提交修改。</li>
+<li>Leader 通知所有 Follower 也提交修改，此时所有节点的值达成一致。</li>
+</ul>
 
             </article>
             <hr>
@@ -255,7 +311,7 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+                      <a class="hover-with-bg" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
                     
                   </div>
                 
@@ -263,7 +319,7 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
                     
                   </div>
                 
@@ -276,9 +332,9 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/05/01/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80/">
+                      <a href="/2020/05/02/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9C%BA%E6%99%AF%E9%A2%98/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">消息队列基础</span>
+                        <span class="hidden-mobile">大数据场景题</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -286,8 +342,8 @@ hexo new "文章名称"</code></pre></li>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/04/29/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                        <span class="hidden-mobile">Java虚拟机</span>
+                      <a href="/2020/05/01/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80/">
+                        <span class="hidden-mobile">消息队列基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -427,7 +483,7 @@ hexo new "文章名称"</code></pre></li>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "hexo搭建博客&nbsp;",
+        "分布式基础&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
