@@ -152,7 +152,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    3.5k 字
+                    3.8k 字
                   </span>
                 
 
@@ -162,7 +162,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    39
+                    42
                      分钟
                   </span>
                 
@@ -191,7 +191,11 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><h2 id="1-1-List-Set-Map区别"><a href="#1-1-List-Set-Map区别" class="headerlink" title="1.1 List,Set,Map区别"></a>1.1 List,Set,Map区别</h2><p>答：Java容器分为Collection和Map两大类。List和Set是Collection的子接口。</p>
+              <p>详细介绍Java的常见集合，包括HashMap、ArrayList的一系列问题，以及介绍快速失败和安全失败机制。</p>
+<p>参考CSDN、掘金的相关帖子和1.8源码。</p>
+<a id="more"></a>
+
+<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><h2 id="1-1-List-Set-Map区别"><a href="#1-1-List-Set-Map区别" class="headerlink" title="1.1 List,Set,Map区别"></a>1.1 List,Set,Map区别</h2><p>答：Java容器分为Collection和Map两大类。List和Set是Collection的子接口。</p>
 <ul>
 <li>List（解决顺序问题）：存储一组有序可重复的对象，实现类有ArrayList、LinkedList和Stack等。</li>
 <li>Set（元素独一无二）：不存在重复的元素，实现类有HashSet、TreeSet等。</li>
@@ -211,7 +215,7 @@
 <li>无法保证读取的数据是最新的数据。(迭代器只有开始遍历时才拿到拷贝，之后原数据发生变动是不知道的)</li>
 </ul>
 <p>还可以理解为一种设计原则，当模块遇到错误，不终止执行，而是采用降级策略，尽量往下走。适用于主模块的分支流程。</p>
-<h1 id="2-Map接口"><a href="#2-Map接口" class="headerlink" title="2.Map接口"></a>2.Map接口</h1><h2 id="2-1-HashMap"><a href="#2-1-HashMap" class="headerlink" title="2.1 HashMap"></a>2.1 HashMap</h2><p>答：HashMap是基于Hash算法实现的由数组和链表组合的数据结构，允许使用null值和null键。</p>
+<h1 id="2-Map接口"><a href="#2-Map接口" class="headerlink" title="2.Map接口"></a>2.Map接口</h1><h1 id="2-Map接口-1"><a href="#2-Map接口-1" class="headerlink" title="2.Map接口"></a>2.Map接口</h1><h2 id="2-1-HashMap"><a href="#2-1-HashMap" class="headerlink" title="2.1 HashMap"></a>2.1 HashMap</h2><p>答：HashMap是基于Hash算法实现的由数组和链表组合的数据结构，允许使用null值和null键。</p>
 <p>总结：用数组存储，将冲突的key对象放入链表中，再发生冲突就在链表中顺序做对比。</p>
 <h3 id="2-1-1-插入元素"><a href="#2-1-1-插入元素" class="headerlink" title="2.1.1 插入元素"></a>2.1.1 插入元素</h3><p>根据源码是 putVal() 进行添加元素的操作。</p>
 <ul>
@@ -228,6 +232,15 @@
 <li>get元素时，找hash值对应的下标，在进一步判断key是否相同，从而找到对应值。</li>
 </ul>
 <h3 id="2-1-3-多线程"><a href="#2-1-3-多线程" class="headerlink" title="2.1.3 多线程"></a>2.1.3 多线程</h3><p>答：hashmap线程不安全。put/get方法没有同步锁，容易出现上一秒put值，下一秒get的还是原值。</p>
+<h3 id="2-1-4-初始化"><a href="#2-1-4-初始化" class="headerlink" title="2.1.4 初始化"></a>2.1.4 初始化</h3><ul>
+<li>new HashMap() 不传值，默认为16，负载因子为0.75。</li>
+<li>传k，则为 <code>大于k的2的整数次方</code>。比如传10，大小为16。</li>
+</ul>
+<h3 id="2-1-5-hash函数设计"><a href="#2-1-5-hash函数设计" class="headerlink" title="2.1.5 hash函数设计"></a>2.1.5 hash函数设计</h3><p>拿到 key 的32位 hashCode，将<strong>hashCode高16位与低16位异或</strong>。</p>
+<ol>
+<li>降低哈希碰撞，混合高半区和低半区的特征，加大低区随机性；</li>
+<li>之后与 length-1，进行与运算，获得最低的 x 位，即下标。</li>
+</ol>
 <h2 id="2-2-HashMap和HashTable的区别"><a href="#2-2-HashMap和HashTable的区别" class="headerlink" title="2.2 HashMap和HashTable的区别"></a>2.2 HashMap和HashTable的区别</h2><ol>
 <li>线程安全：HashMap线程不安全；HashTable内部使用synchronized关键字，线程安全。</li>
 <li>Null Key支持：HashMap中null可作为Key；HashTable中null不能作key也不能作value。</li>
@@ -241,7 +254,7 @@
 <li>安全失败机制。让此次读取的数据不一定是最新，同时key为null就无法判断key是不存在还是空。</li>
 </ul>
 <h3 id="2-2-2-线程不安全"><a href="#2-2-2-线程不安全" class="headerlink" title="2.2.2 线程不安全"></a>2.2.2 线程不安全</h3><ul>
-<li>HashMap线程不安全。因为多线程环境下扩容，导致hash规则变化，可能形成环形链表，死循环。</li>
+<li>HashMap线程不安全。因为多线程环境下扩容，导致hash规则变化，可能形成环形链表，死循环。多线程下数据覆盖问题，A线程判断index为空挂起，B线程写入index，这时A线程恢复线程，进行赋值操作，把B线程数据覆盖。</li>
 <li>HashTable线程安全。因为内部实现put和remove方法时使用synchronized同步，所以对单个方法的使用是线程安全的。但对多个方法复合操作时，无法保证安全性。</li>
 </ul>
 <h2 id="2-3-HashMap的底层结构"><a href="#2-3-HashMap的底层结构" class="headerlink" title="2.3 HashMap的底层结构"></a>2.3 HashMap的底层结构</h2><p>答：JDK1.8之前，用数组+链表用链地址法实现。所谓拉链法，就是数组链表，数组的每一格就是一个链表，遇到哈希冲突，则将冲突值加入链表。</p>
@@ -259,6 +272,13 @@
 <li>ReHash：遍历原数组，将对象重新hash后放入新数组中。</li>
 </ul>
 <h3 id="2-4-1-为啥要rehash"><a href="#2-4-1-为啥要rehash" class="headerlink" title="2.4.1 为啥要rehash"></a>2.4.1 为啥要rehash</h3><p>答：因为长度扩大后，hash规则也改变。key &amp; (length-1)</p>
+<ul>
+<li>1.8 前，需要重新hash计算在新数组的位置；</li>
+<li>1.8 后，只需要逻辑判断，位置不变或者索引+原容量大小。</li>
+</ul>
+<blockquote>
+<p>扩容是两倍大小，所以相当于 01111 -&gt; 11111，高位为0，则hash值不变，高位为1，则hash值为原索引+16。</p>
+</blockquote>
 <h3 id="2-4-2-长度为什么是2的幂-初始长度为什么是16"><a href="#2-4-2-长度为什么是2的幂-初始长度为什么是16" class="headerlink" title="2.4.2 长度为什么是2的幂/初始长度为什么是16"></a>2.4.2 长度为什么是2的幂/初始长度为什么是16</h3><p>答：有助于减少碰撞次数，提高查询效率。 </p>
 <ul>
 <li><strong>hash%length == hash&amp;(length-1)的前提是 length 是2^n</strong>。</li>
@@ -428,7 +448,7 @@ List myList = Arrays.stream(myArray2).boxed().collect(Collectors.toList());</cod
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                      <a class="hover-with-bg" href="/tags/%E9%9B%86%E5%90%88/">集合</a>
                     
                   </div>
                 

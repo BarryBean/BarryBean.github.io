@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="BarryBean">
+  <meta name="keywords" content="">
+  <title>认证授权和网络攻击 - BarryBean&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>BarryBean's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/sky.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-08 20:43">
+                    星期五, 五月 8日 2020, 8:43 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    2.1k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    24
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>常见的授权方式，如 Cookie、Session、Token和OAuth2.0，以及常问的几种网络攻击方式，XSS、CSRF、SQL注入和Dos。</p>
+<p>OAuth参照阮一峰的系列文章。</p>
+<a id="more"></a>
+
+<h1 id="1-认证授权"><a href="#1-认证授权" class="headerlink" title="1. 认证授权"></a>1. 认证授权</h1><h2 id="1-1-Authentication和Authorization"><a href="#1-1-Authentication和Authorization" class="headerlink" title="1.1 Authentication和Authorization"></a>1.1 Authentication和Authorization</h2><p>答：通俗说，认证 Authentication 就是你是谁，授权 Authorization 就是你有权干什么。</p>
+<h2 id="1-2-Cookie和Session"><a href="#1-2-Cookie和Session" class="headerlink" title="1.2 Cookie和Session"></a>1.2 Cookie和Session</h2><ul>
+<li>Cookie是保存在客户端，用来保存用户信息的数据。内有SessionID。</li>
+<li>Session是保存在服务端，用来记录用户状态的数据。通过SessionID标识用户，放在redis里。</li>
+</ul>
+<h3 id="1-2-1-认证流程"><a href="#1-2-1-认证流程" class="headerlink" title="1.2.1 认证流程"></a>1.2.1 认证流程</h3><ol>
+<li>Client发送用户名密码登录系统；</li>
+<li>Server验证通过，创建Session标识用户，并保存redis；</li>
+<li>Server返回SessionID，写入Client的cookie；</li>
+<li>Client之后所有请求都带cookie发出；</li>
+<li>Server通过redis中的Session信息和cookie中的SessionID比较，验证身份。</li>
+</ol>
+<h3 id="1-2-2-Cookie禁用"><a href="#1-2-2-Cookie禁用" class="headerlink" title="1.2.2 Cookie禁用"></a>1.2.2 Cookie禁用</h3><p>答：不是没有Cookie就不能用Session，还可以把Session<strong>直接拼接URL</strong>，或者加密后再拼接。</p>
+<h3 id="1-2-3-安全问题"><a href="#1-2-3-安全问题" class="headerlink" title="1.2.3 安全问题"></a>1.2.3 安全问题</h3><p>答：Cookie无法阻止CSRF跨站请求伪造，因为只要拿到SessionID就能冒用身份进行访问。</p>
+<h2 id="1-3-Token"><a href="#1-3-Token" class="headerlink" title="1.3 Token"></a>1.3 Token</h2><p>答：Token令牌，本质上是一段<strong>带有签名的 JSON 格式数据</strong>。客户端将Server发来的Token保存在localStorage/Cookie中，之后所有请求都携带令牌。服务端并不保存，每次只用解密token查询用户信息。</p>
+<h3 id="1-3-1-流程"><a href="#1-3-1-流程" class="headerlink" title="1.3.1 流程"></a>1.3.1 流程</h3><ol>
+<li>用户发送用户名和密码登录；</li>
+<li>验证通过，返回带签名的JWT；</li>
+<li>Client每次请求都在Header中携带JWT；</li>
+<li>Server检查JWT获得用户信息。</li>
+</ol>
+<h3 id="1-3-2-为何防止CSRF"><a href="#1-3-2-为何防止CSRF" class="headerlink" title="1.3.2 为何防止CSRF"></a>1.3.2 为何防止CSRF</h3><p>答：Token放在Cookie中，同源页面每次发请求都在请求头或者参数中加入Cookie中读取的Token来完成验证。CSRF只能通过浏览器带上Cookie，无法获取该用户的Token的具体值。</p>
+<p>注：这时候的Cookie纯粹当作一个存储的容器。</p>
+<h2 id="1-4-OAuth2-0"><a href="#1-4-OAuth2-0" class="headerlink" title="1.4 OAuth2.0"></a>1.4 OAuth2.0</h2><p>OAuth2.0是一种授权标准，为第三方应用颁发有时效性的 Token 从而对系统获取一定的权限。</p>
+<h3 id="1-4-1-token和密码的区别"><a href="#1-4-1-token和密码的区别" class="headerlink" title="1.4.1 token和密码的区别"></a>1.4.1 token和密码的区别</h3><ol>
+<li>令牌<strong>到期自动失效</strong>，密码长期有效；</li>
+<li>令牌不能自己修改，<strong>只能被数据所有者撤销</strong>，密码能被用户修改，但不会被外力撤销；</li>
+<li>令牌<strong>有权限范围</strong>，密码一般都是所属角色的完整权限。 </li>
+</ol>
+<h3 id="1-4-2-四种方式"><a href="#1-4-2-四种方式" class="headerlink" title="1.4.2 四种方式"></a>1.4.2 四种方式</h3><ol>
+<li>授权码。最常用的，有后台有前端。<ul>
+<li>第三方应用先申请一个授权码，再用该码获取令牌；</li>
+<li>授权码在前端，令牌保存后端。</li>
+</ul>
+</li>
+</ol>
+<p>流程：</p>
+<ol>
+<li><p>A提供如下链接，点击后跳转B，进行授权。四个参数分别是<code>返回的授权码</code>，<code>客户端id</code>，<code>接受/拒绝后的跳转地址</code>，<code>授权范围</code>。</p>
+</li>
+<li><p>B要求用户登录，并询问是否给授权。若同意，B跳转到指定地址，同时传回授权码。</p>
+<pre><code class="hljs html">https://b.com/oauth/authorize?
+  response_type=code&amp;
+  client_id=CLIENT_ID&amp;
+  redirect_uri=CALLBACK_URL&amp;
+  scope=read</code></pre></li>
+<li><p>A拿到授权码，对B发送请求获得令牌。参数分别是<code>客户端id</code>和<code>secret</code>用来确认身份，<code>认证类型</code>即authorization_code，上一步拿到的<code>授权码</code>，令牌颁发的<code>回调地址</code>。</p>
+</li>
+<li><p>B收到请求，向回调地址发送一段 json数据，即颁发令牌。</p>
+<pre><code class="hljs html">https://b.com/oauth/token?
+ client_id=CLIENT_ID&amp;
+ client_secret=CLIENT_SECRET&amp;
+ grant_type=authorization_code&amp;
+ code=AUTHORIZATION_CODE&amp;
+ redirect_uri=CALLBACK_URL</code></pre>
+</li>
+<li><p>隐藏式</p>
+<ul>
+<li>没有后端，直接令牌存在前端，跳过授权码的步骤。</li>
+</ul>
+</li>
+<li><p>密码式</p>
+<ul>
+<li>第三方应用用你的密码去申请令牌。</li>
+</ul>
+</li>
+<li><p>客户端凭证</p>
+<ul>
+<li>可能多个用户共享一个令牌。</li>
+</ul>
+</li>
+</ol>
+<h3 id="1-4-3-令牌更新"><a href="#1-4-3-令牌更新" class="headerlink" title="1.4.3 令牌更新"></a>1.4.3 令牌更新</h3><p>一次颁发两个令牌，一个用来获取数据，一个用来获取新的令牌。令牌到期时，用户使用 <code>refresh token</code> 发请求，去更新令牌。</p>
+<h2 id="1-5-SSO"><a href="#1-5-SSO" class="headerlink" title="1.5 SSO"></a>1.5 SSO</h2><p>单点登录，解决一个公司多个相关子系统间的登陆问题。登录一个就等同登录一群。</p>
+<h1 id="2-安全漏洞"><a href="#2-安全漏洞" class="headerlink" title="2.安全漏洞"></a>2.安全漏洞</h1><h2 id="2-1-XSS跨站脚本攻击"><a href="#2-1-XSS跨站脚本攻击" class="headerlink" title="2.1 XSS跨站脚本攻击"></a>2.1 XSS跨站脚本攻击</h2><p>答：XSS(Cross-Site Scripting)跨站脚本攻击，通过<strong>在用户提交数据中加入恶意代码</strong>，从而破坏页面结构，盗取用户资料等。XSS利用用户对网站的信任。</p>
+<h3 id="2-1-1-产生原因"><a href="#2-1-1-产生原因" class="headerlink" title="2.1.1 产生原因"></a>2.1.1 产生原因</h3><p>答：过分信任客户端数据，没有对数据进行过滤和转移。</p>
+<h3 id="2-1-2-分类"><a href="#2-1-2-分类" class="headerlink" title="2.1.2 分类"></a>2.1.2 分类</h3><p>答：分为：</p>
+<ul>
+<li>存储型：恶意代码<strong>放在数据库中</strong>，每次Server响应Client请求时返回并执行；</li>
+<li>反射型：恶意代码<strong>加在URL中作为参数</strong>提交，Server解析响应，恶意代码存在结果中；</li>
+<li>DOM型：<strong>前端JS的漏洞</strong>，恶意代码在Client执行。</li>
+</ul>
+<h3 id="2-1-3-防御"><a href="#2-1-3-防御" class="headerlink" title="2.1.3 防御"></a>2.1.3 防御</h3><p>答：简单方法：</p>
+<ul>
+<li><strong>过滤特殊字符</strong>，比如将&lt;转义为&amp;lt。</li>
+<li>对重要<strong>cookie设置httpOnly</strong>，防止前端通过document获得。</li>
+</ul>
+<h2 id="2-2-CSRF跨站请求伪造"><a href="#2-2-CSRF跨站请求伪造" class="headerlink" title="2.2 CSRF跨站请求伪造"></a>2.2 CSRF跨站请求伪造</h2><p>答：CSRF(Cross-site request forgery)跨站请求伪造，通过恶意网站<strong>伪装成受信任用户进行请求访问</strong>获取数据。恶意网站只能冒用cookie，不能获得cookie。CSRF利用网站对Client的信任。</p>
+<h3 id="2-2-1-过程"><a href="#2-2-1-过程" class="headerlink" title="2.2.1 过程"></a>2.2.1 过程</h3><p><img src="/img/network/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0.png" srcset="/img/loading.gif" alt="跨站请求伪造"></p>
+<h3 id="2-2-2-防御"><a href="#2-2-2-防御" class="headerlink" title="2.2.2 防御"></a>2.2.2 防御</h3><p>答：常用方法：</p>
+<ul>
+<li><strong>Referer字段验证</strong>：<strong>不适用，Referer能被篡改</strong>。HTTP头中用Referer字段记录请求的源地址。</li>
+<li><strong>Token验证</strong>：<strong>Server发给Client一个Token，Client发出带Token的请求</strong>，若Token不合法，则Server拒绝请求。</li>
+<li><strong>双重Cookie验证</strong>：Client将<strong>Cookie参数加入请求参数</strong>中，Server校验，若无附加的cookie参数则拒绝请求。</li>
+<li><strong>验证码</strong>：在用户进行敏感操作时，要求用户输入验证码。</li>
+</ul>
+<h3 id="2-2-3-XSS和CSRF区别"><a href="#2-2-3-XSS和CSRF区别" class="headerlink" title="2.2.3 XSS和CSRF区别"></a>2.2.3 XSS和CSRF区别</h3><p>答：总结为：</p>
+<ul>
+<li>CSRF需要用户先登录网站A，恶意网站B再冒用用户在A的cookie。XSS不需要登录。</li>
+<li>CSRF本质是利用网站漏洞请求接口，XSS本质是注入恶意代码篡改内容。</li>
+</ul>
+<h2 id="2-3-SSRF服务端请求伪造"><a href="#2-3-SSRF服务端请求伪造" class="headerlink" title="2.3 SSRF服务端请求伪造"></a>2.3 SSRF服务端请求伪造</h2><p>答：SSRF(Server-site request forgery)服务端请求伪造，通过Server使得<strong>外网能访问内网系统</strong>。</p>
+<h3 id="2-3-1-过程"><a href="#2-3-1-过程" class="headerlink" title="2.3.1 过程"></a>2.3.1 过程</h3><p><img src="/img/network/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0.png" srcset="/img/loading.gif" alt="服务端请求伪造"></p>
+<h3 id="2-3-2-原因"><a href="#2-3-2-原因" class="headerlink" title="2.3.2 原因"></a>2.3.2 原因</h3><p>答：Server提供从其他服务器获取数据，但没有对地址做过滤限制。</p>
+<h3 id="2-3-3-防御"><a href="#2-3-3-防御" class="headerlink" title="2.3.3 防御"></a>2.3.3 防御</h3><p>答：常用方法：</p>
+<ul>
+<li><strong>限制请求端口</strong>。保留常用HTTP端口。</li>
+<li><strong>设置IP黑名单</strong>。一经发现直接拉黑。</li>
+<li><strong>禁用不必要的协议</strong>。只保留HTTP和HTTPS。</li>
+<li><strong>过滤返回信息</strong>。</li>
+</ul>
+<h2 id="2-4-SQL注入"><a href="#2-4-SQL注入" class="headerlink" title="2.4 SQL注入"></a>2.4 SQL注入</h2><p>答：SQL注入指<strong>把SQL命令插入请求字符串或者页面提交中，欺骗Server执行</strong>。大多都是利用设计漏洞，没有对用户输入数据进行校验。比如：</p>
+<blockquote>
+<p>strSQL = “SELECT * FROM users WHERE (name = ‘1’ OR ‘1’=’1’) and (pw = ‘1’ OR ‘1’=’1’);”<br>//获得用户信息。</p>
+</blockquote>
+<h3 id="2-4-1-防御"><a href="#2-4-1-防御" class="headerlink" title="2.4.1 防御"></a>2.4.1 防御</h3><p>答：常用方法：</p>
+<ul>
+<li><strong>预编译语句</strong>。直接传入数据执行，<strong>避免</strong>进行<strong>SQL</strong>语句<strong>拼接</strong>。使用占位符，#{}。</li>
+<li>对Client的输入进行类型检查。</li>
+</ul>
+<h2 id="2-5-DoS拒绝服务攻击"><a href="#2-5-DoS拒绝服务攻击" class="headerlink" title="2.5 DoS拒绝服务攻击"></a>2.5 DoS拒绝服务攻击</h2><p>答：DoS(denial-of-service attack)拒绝服务攻击，亦称洪水攻击。目的是<code>使目标电脑的网络或系统资源耗尽，迫使服务中断停止，导致用户无法访问</code>。<br>DDos(distributed denial-of-service attack)分布式拒绝服务攻击，指<code>攻击者使用两个或以上被攻陷的电脑作为“僵尸”向特定的目标发动Dos</code>。</p>
+<h3 id="2-5-1-分类"><a href="#2-5-1-分类" class="headerlink" title="2.5.1 分类"></a>2.5.1 分类</h3><ul>
+<li>SYN Flood。<strong>利用TCP协议缺陷，发送大量半连接请求</strong>，从而耗尽资源。(半连接指客户端掉线，服务器在一段时间内维护未完成的连接)</li>
+<li>CC 攻击。应用层攻击手段。<strong>模拟多个正常用户不停地访问需要大量数据操作的页面</strong>，造成服务器资源浪费。</li>
+</ul>
+<h3 id="2-5-2-防御"><a href="#2-5-2-防御" class="headerlink" title="2.5.2 防御"></a>2.5.2 防御</h3><p>答：无法根治。</p>
+<ul>
+<li>关闭不必要的服务，仅保留重要端口。 </li>
+<li>缩短SYN 半连接的 Timeout 时间。</li>
+<li>设置半连接的最大数目。</li>
+<li>短时间连续收到某个IP的重复SYN将此地址拉黑。</li>
+<li>防火墙设置。</li>
+<li>严格监控对外开放的服务器的对外访问。</li>
+</ul>
+<h2 id="2-6-检测连接安全性"><a href="#2-6-检测连接安全性" class="headerlink" title="2.6 检测连接安全性"></a>2.6 检测连接安全性</h2><ol>
+<li>验证码。简单有效。点触、滑动、第三方。</li>
+<li>频率。限制单IP、单设备的请求次数。</li>
+<li>归属地。手机号和常用IP所在地匹配。</li>
+<li>可疑用户。短信/邮件验证码验证身份。</li>
+<li>黑名单。已在黑名单用户，返回接口默认值。</li>
+<li>签名/加密。</li>
+<li>Token。</li>
+<li>https。</li>
+<li>风控。</li>
+<li>数据安全。提高攻击者的攻击成本。</li>
+<li>第三方的IP鉴定库。</li>
+</ol>
+<p>图片来源：<a href="https://blog.nowcoder.net/n/a3776d83a8014f618dc50e78bcc95b53" target="_blank" rel="noopener">https://blog.nowcoder.net/n/a3776d83a8014f618dc50e78bcc95b53</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83/">认证授权</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/">网络攻击</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/08/MySQL/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/08/Linux%E5%9F%BA%E7%A1%80/">
+                        <span class="hidden-mobile">Linux基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "认证授权和网络攻击&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

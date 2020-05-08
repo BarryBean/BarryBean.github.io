@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="BarryBean">
+  <meta name="keywords" content="">
+  <title>Linux基础 - BarryBean&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>BarryBean's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/sky.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-08 20:09">
+                    星期五, 五月 8日 2020, 8:09 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    2.1k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    24
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>Linux的基本概念，文件系统，进程状态和常用命令。</p>
+<a id="more"></a>
+
+<h1 id="1-基础操作和概念"><a href="#1-基础操作和概念" class="headerlink" title="1. 基础操作和概念"></a>1. 基础操作和概念</h1><h2 id="1-1-快捷键"><a href="#1-1-快捷键" class="headerlink" title="1.1 快捷键"></a>1.1 快捷键</h2><ul>
+<li>Tab：补全。</li>
+<li>Ctrl + C：中断。</li>
+<li>Ctrl + D：结束键盘输入。</li>
+</ul>
+<h2 id="1-2-关机"><a href="#1-2-关机" class="headerlink" title="1.2 关机"></a>1.2 关机</h2><ul>
+<li>who：查看当前在线用户；</li>
+<li>sync：同步操作，将内存文件同步磁盘；</li>
+<li>shutdown -h now：立即关机。 </li>
+</ul>
+<h2 id="1-3-路径"><a href="#1-3-路径" class="headerlink" title="1.3 路径"></a>1.3 路径</h2><ul>
+<li>路径间用 <code>:</code>分割；</li>
+<li>sudo：允许一般用户使用 root 命令。</li>
+</ul>
+<h2 id="1-4-包管理工具"><a href="#1-4-包管理工具" class="headerlink" title="1.4 包管理工具"></a>1.4 包管理工具</h2><ul>
+<li>RPM：Red Hat =&gt; CentOS</li>
+<li>DPKG：Ubuntu =&gt; Debian</li>
+</ul>
+<h2 id="1-5-vim"><a href="#1-5-vim" class="headerlink" title="1.5 vim"></a>1.5 vim</h2><p>分为三个模式。</p>
+<ul>
+<li>vim进入的默认模式是 一般指令模式Command mode，可以进行剪切粘贴，游标移动；</li>
+<li>i,I,a,A,o,O 进入编辑模式，esc退出；</li>
+<li>: 进入指令列模式，用于保存退出。</li>
+</ul>
+<p>指令列模式的操作又有：</p>
+<ul>
+<li>:w：写入磁盘；</li>
+<li>:q：离开；</li>
+<li>:wq：写入磁盘后离开；</li>
+<li>加上!就是强制操作。</li>
+</ul>
+<h1 id="2-文件系统"><a href="#2-文件系统" class="headerlink" title="2. 文件系统"></a>2. 文件系统</h1><p>Linux哲学：一切都是文件。</p>
+<h2 id="2-1-组成"><a href="#2-1-组成" class="headerlink" title="2.1 组成"></a>2.1 组成</h2><p>答：主要包括：</p>
+<ul>
+<li>inode：一个文件占用一个inode，记录文件属性和文件内容的block编号。</li>
+<li>block：记录文件内容。</li>
+<li>superblock：记录文件系统的整体信息。包括inode、block的总量、使用量、剩余量等。</li>
+<li>block bitmap：记录block是否被使用的位图。</li>
+</ul>
+<p><img src="/img/os/Linux%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" alt="Linux文件"></p>
+<h3 id="2-1-1-block"><a href="#2-1-1-block" class="headerlink" title="2.1.1 block"></a>2.1.1 block</h3><p>答：一个block只能被一个文件使用，未使用的部分就是被浪费了。可以理解为内存块。</p>
+<p>Ext2文件系统支持1K、2K、4K三种大小，分别限制了单个文件和文件系统的大小。</p>
+<h3 id="2-1-2-inode"><a href="#2-1-2-inode" class="headerlink" title="2.1.2 inode"></a>2.1.2 inode</h3><p>答：inode的特点有：</p>
+<ul>
+<li>每个inode均是128bytes。</li>
+<li>一个文件有且仅占用一个inode。</li>
+<li>inode内的block编号使用间接引用。让引用的block块记录block信息。</li>
+</ul>
+<h2 id="2-2-文件类型"><a href="#2-2-文件类型" class="headerlink" title="2.2 文件类型"></a>2.2 文件类型</h2><p><img src="/img/os/%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" alt="文件类型"></p>
+<h2 id="2-3-文件读取"><a href="#2-3-文件读取" class="headerlink" title="2.3 文件读取"></a>2.3 文件读取</h2><p>答：根据文件系统不同，读取方式也不同。</p>
+<ul>
+<li>Ext2：先读inode中内容所在的所有block，再读取block内容。</li>
+<li>FAT：没有inode，block存着下一个block的编号。</li>
+</ul>
+<h2 id="2-4-文件属性"><a href="#2-4-文件属性" class="headerlink" title="2.4 文件属性"></a>2.4 文件属性</h2><p>答：</p>
+<ul>
+<li>用户分为：文件所有者、所在群组、其他用户。</li>
+<li>文件分为：d目录、-文件、|链接文件。</li>
+<li>权限分为：r可读、w可写、x可执行。转为数字即421。</li>
+<li>文件时间：内容更新、状态更新、读取更新。</li>
+<li>文件的默认权限是 666，目录的默认权限是777。</li>
+</ul>
+<h2 id="2-5-目录结构"><a href="#2-5-目录结构" class="headerlink" title="2.5 目录结构"></a>2.5 目录结构</h2><p><img src="/img/os/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" alt="Linux目录结构"></p>
+<ul>
+<li>/root：根目录；</li>
+<li>/bin：存放二进制文件，存储着命令；</li>
+<li>/etc：存放系统管理和配置文件；</li>
+<li>/home：存放用户文件的根目录；</li>
+<li>/usr：默认存放系统应用程序；</li>
+<li>/var：存放运行过程中的产生的数据文件。</li>
+</ul>
+<h2 id="2-6-挂载目录日志"><a href="#2-6-挂载目录日志" class="headerlink" title="2.6 挂载目录日志"></a>2.6 挂载目录日志</h2><ul>
+<li>挂载：用目录作为文件系统的进入点，即进入该目录相当于进入系统能进行数据读取。</li>
+<li>目录：分配一个inode和若干block，block记录目录下所有文件的inode编号和文件名。</li>
+<li>日志：用来修复文件系统，回滚操作。</li>
+</ul>
+<h2 id="2-7-链接"><a href="#2-7-链接" class="headerlink" title="2.7 链接"></a>2.7 链接</h2><ol>
+<li>实体链接：在目录下创建一个条目，记录源文件inode编号和文件名。</li>
+<li>符号链接：保存源文件的绝对路径。理解为windows的快捷方式。</li>
+</ol>
+<h1 id="3-进程管理"><a href="#3-进程管理" class="headerlink" title="3.进程管理"></a>3.进程管理</h1><h2 id="3-1-进程状态"><a href="#3-1-进程状态" class="headerlink" title="3.1 进程状态"></a>3.1 进程状态</h2><p>和os中的进程状态相似。</p>
+<ul>
+<li>R：正在执行或者可执行，位于执行队列中。</li>
+<li>D：不可中断阻塞，通常为 IO 阻塞。</li>
+<li>S：可中断阻塞，进程正在等待某个事件完成。</li>
+<li>Z：僵死，进程已经终止但是尚未被其父进程获取信息。</li>
+<li>T：结束。</li>
+</ul>
+<h2 id="3-2-SIGCHLD"><a href="#3-2-SIGCHLD" class="headerlink" title="3.2 SIGCHLD"></a>3.2 SIGCHLD</h2><p>答：当一个子进程改变状态，父进程会发生两件事。</p>
+<ul>
+<li>得到SIGCHLD信号。包含子进程的信息，如ID、状态等。</li>
+<li>wait()调用销毁子进程并返回。父进程通过wait()获得退出子进程的信息。成功就返回子进程id，失败返回-1。</li>
+</ul>
+<h2 id="3-3-孤儿进程"><a href="#3-3-孤儿进程" class="headerlink" title="3.3 孤儿进程"></a>3.3 孤儿进程</h2><p>答：父进程退出，但子进程还在运行，这些子进程就是孤儿进程。孤儿进程会被 init 进程收养和处理。</p>
+<h2 id="3-4-僵尸进程"><a href="#3-4-僵尸进程" class="headerlink" title="3.4 僵尸进程"></a>3.4 僵尸进程</h2><p>答：子进程退出后，父进程没有调用wait()释放进程描述符，使得子进程描述符一直保存在系统中，这就是僵尸进程。</p>
+<ul>
+<li>危害：进程号是有限的，僵尸进程占据大量进程号。</li>
+<li>解决方法：杀死父进程，让僵尸进程变成孤儿进程。</li>
+</ul>
+<h1 id="4-常用命令"><a href="#4-常用命令" class="headerlink" title="4.常用命令"></a>4.常用命令</h1><h2 id="4-1-文件和目录命令"><a href="#4-1-文件和目录命令" class="headerlink" title="4.1 文件和目录命令"></a>4.1 文件和目录命令</h2><ol>
+<li>cd</li>
+</ol>
+<pre><code class="hljs shell">cd xxx：切换到该目录下的xxx目录；
+cd ..：切换到上一层目录；
+cd /：切换到根目录；
+cd ~：切换到用户主目录；
+cd -：切换到上一个操作所在的目录。</code></pre>
+
+
+<ol start="2">
+<li>ls 列出文件或目录信息。通常用 ll</li>
+<li>mkdir 创建目录。</li>
+<li>rmdir 删除目录，必须为空。</li>
+<li>touch 建立文件/更新文件时间。</li>
+<li>cp 复制文件</li>
+</ol>
+<pre><code class="hljs shell">cp -r source destination</code></pre>
+
+<ol start="7">
+<li>rm 删除文件</li>
+</ol>
+<pre><code class="hljs powershell">rm <span class="hljs-literal">-rf</span>：删库跑路</code></pre>
+
+<ol start="8">
+<li>mv 移动文件<pre><code class="hljs shell">mv -f source destination 强制移动</code></pre>
+
+
+</li>
+</ol>
+<h2 id="4-2-修改权限"><a href="#4-2-修改权限" class="headerlink" title="4.2 修改权限"></a>4.2 修改权限</h2><p>chmod [ugoa] [+-=] [rwx]</p>
+<pre><code class="hljs shell">chmod u=rwx,g=rw,o=r aaa.txt
+chmod 764 aaa.txt
+chmod a+w .bashrc</code></pre>
+<p>修改aaa.txt的权限为：用户拥有全部权限，用户组有读写权限，其他用户只有读权限。也可以用数字表示。</p>
+<h2 id="4-3-获取文件内容"><a href="#4-3-获取文件内容" class="headerlink" title="4.3 获取文件内容"></a>4.3 获取文件内容</h2><ul>
+<li>cat：取得文件内容；</li>
+<li>tac：cat的反向操作，从最后一行获取文件内容；</li>
+<li>more：一页一页查看文件内容，q退出，回车下一行，空格下一页；</li>
+<li>less：PgUp和PgDn翻页；</li>
+<li>head -x：查看前x行；</li>
+<li>tail -x：查看后x行，Ctrl+C结束；</li>
+</ul>
+<h2 id="4-4-压缩命令"><a href="#4-4-压缩命令" class="headerlink" title="4.4 压缩命令"></a>4.4 压缩命令</h2><ol>
+<li>压缩指令<br>压缩指令只对单个文件进行压缩。</li>
+</ol>
+<ul>
+<li>gzip 使用最多<pre><code class="hljs shell">gzip [-cdtv#] filename
+ -c：将压缩数据输出到屏幕；
+ -d：压缩；
+ -t：校验压缩文件；
+ -v：显示压缩比信息；
+<span class="hljs-meta"> -#</span><span class="bash">：压缩等级，默认6，越大越高。</span></code></pre></li>
+<li>bzip2 更高的压缩比</li>
+<li>xz 更加高的压缩比</li>
+</ul>
+<ol start="2">
+<li>打包<br>打包能将多个文件打包成一个大文件，且将打包和压缩合在一起进行。</li>
+</ol>
+<pre><code class="hljs shell">//打包压缩
+tar [-z|-j|-J] [cv] -f filename
+ -z：使用gzip；
+ -j：使用bzip2；
+ -J：使用xz；
+ -c：新建打包文件；
+ -v：在过程中，显示处理的文件名；
+ -f：要处理的文件；
+ 
+//查看
+tar [-z|-j|-J] [tv] -f filename
+ -t：查看打包文件中的内容；
+
+//解压缩
+tar [-z|-j|-J] [xv] -f filename -C
+ -x：解压缩；
+ -C：在目标目录解压缩。</code></pre>
+
+<h2 id="4-5-指令搜索和文件搜索"><a href="#4-5-指令搜索和文件搜索" class="headerlink" title="4.5 指令搜索和文件搜索"></a>4.5 指令搜索和文件搜索</h2><ol>
+<li>which -a 指令搜索</li>
+<li>whereis filename 文件搜索</li>
+<li>locate keyword 根据关键字或正则表达式搜索文件</li>
+<li>find 根据属性和权限进行文件搜索</li>
+</ol>
+<h2 id="4-6-管道指令"><a href="#4-6-管道指令" class="headerlink" title="4.6 管道指令"></a>4.6 管道指令</h2><ol>
+<li>管道是将一个命令的输出作为另一个命令的输入。使用 | 作为分隔。</li>
+<li>cut 切分数据，取出想要的部分。<pre><code class="hljs shell">last | cut -d ' ' -f 1 -c 12-
+ -d：分隔符；
+ -f：分隔后，使用 `-f n` 取出第 n 个区间；
+ -c：以字符为单位取区间。`-c 12-` 取出第12字符后的字符串。</code></pre></li>
+<li>sort 排序<pre><code class="hljs shell">-f ：忽略大小写
+-b ：忽略最前面的空格
+-M ：以月份的名字来排序，例如 JAN，DEC
+-n ：使用数字
+-r ：反向排序
+-u ：相当于 unique，重复的内容只出现一次
+-t ：分隔符，默认为 tab
+-k ：指定排序的区间</code></pre></li>
+<li>字符转化指令<ul>
+<li>tr 删除行中字符 / 替换字符</li>
+<li>join 合并有相同数据的行</li>
+<li>paste 直接粘贴两行</li>
+</ul>
+</li>
+<li>split 将一个文件划分为多个文件<pre><code class="hljs shell">split [-bl] file PREFIX
+-b ：以大小来进行分区，可加单位，例如 b, k, m 等；
+-l ：以行数来进行分区；
+-PREFIX ：分区文件的前缀名称。</code></pre>
+
+</li>
+</ol>
+<h2 id="4-7-正则表达式"><a href="#4-7-正则表达式" class="headerlink" title="4.7 正则表达式"></a>4.7 正则表达式</h2><ol>
+<li>grep 全局查找<pre><code class="hljs shell">grep [-acinv] [--color=auto] 搜寻字符串 filename
+ -c ： 统计匹配到行的个数
+ -i ： 忽略大小写
+ -n ： 输出行号
+ -v ： 反向选择，也就是显示出没有 搜寻字符串 内容的那一行
+ --color=auto ：找到的关键字加颜色显示</code></pre></li>
+<li>printf 格式化输出，传数据时用 $()，不属于管道命令。</li>
+<li>awk 逐行读文件，进行切片，对每部分进行分析处理。<pre><code class="hljs shell">awk '&#123;pattern + action&#125;' &#123;filenames&#125;</code></pre>
+
+</li>
+</ol>
+<h2 id="4-8-进程管理"><a href="#4-8-进程管理" class="headerlink" title="4.8 进程管理"></a>4.8 进程管理</h2><ol>
+<li>ps 查看进程信息<pre><code class="hljs shell">-l：查看自己进程
+aux：查看系统所有进程</code></pre></li>
+<li>pstree 查看进程树</li>
+<li>top 实时显示进程信息</li>
+<li>netstat 查看占用端口的进程</li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/08/%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E5%92%8C%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">认证授权和网络攻击</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/05/Java%E5%B9%B6%E5%8F%91/">
+                        <span class="hidden-mobile">Java并发</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Linux基础&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
